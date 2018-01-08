@@ -25,10 +25,9 @@ Mijn doelgroep is duidelijk gericht op studenten die graag de restjes op willen 
 - _Show more detailed information in app:_ Door het gebruik van de API's wordt er gelinked naar een website waar de instructies van het recept staan. Ik wil als extra feature kijken of het mogelijk is om die informatie te weergeven in app zonder van de app weg te hoeven gaan als gebruiker.
 
 ### Data sources
-Food API / Yummly / RecipePuppy (nog niet duidelijk welke API)
+Yummly API (zojuist geaccepteerd)
 - _Yummly:_ https://developer.yummly.com/
-- _Food API:_ https://spoonacular.com/food-api
-- _RecipePuppy:_ http://www.recipepuppy.com/about/api/
+
 #### Other
 - _ShopScraper:_ https://github.com/wvengen/shopscraper-api
 
