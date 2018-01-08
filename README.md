@@ -19,6 +19,7 @@ Mijn doelgroep is duidelijk gericht op studenten die graag de restjes op willen 
 - _Shown recipes_
 
 ### Sketch
+#### Main / simple structure:
 ![alt text](https://github.com/tomdekr/project-01/blob/master/doc/sketch1.png)
 
 ### Extra Features / Hardest part
