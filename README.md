@@ -23,7 +23,7 @@ Mijn doelgroep is duidelijk gericht op studenten die graag de restjes op willen 
 ![alt text](https://github.com/tomdekr/project-01/blob/master/doc/sketch1.png)
 
 ### Extra Features / Hardest part
-- _Show more detailed information in app:_ Door het gebruik van de API's wordt er gelinked naar een website waar de instructies van het recept staan. Ik wil als extra feature kijken of het mogelijk is om die informatie te weergeven in app zonder van de app weg te hoeven gaan als gebruiker.
+- _Show more detailed information in app:_ Door het gebruik van de API's wordt er gelinked naar een website waar de instructies van het recept staan. Ik wil als extra feature kijken of het mogelijk is om die informatie te weergeven in app zonder van de app weg te hoeven gaan als gebruiker. (Waarschijnlijk door acceptatie van Yummly als developer nu goed mogelijk)
 
 ### Data sources
 Yummly API (zojuist geaccepteerd)
