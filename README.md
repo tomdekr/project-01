@@ -11,7 +11,8 @@ Mijn doelgroep is duidelijk gericht op studenten die graag de restjes op willen 
 
 ### Main features
 - _Login/Signup:_ De gebruiker kan een account maken en daarmee de activiteiten op de app beginnen.
-- _Input:_ De gebruiker wordt gevraagd om op de homepage zijn 'leftover' ingredienten in te vullen. Door vervolgens op de knop 'Create' te klikken worden er recepten weergegeven op een nieuwe activity in de vorm van afbeeldingen. Door de afbeeldingen kan gescrolld worden om het juiste recept te vinden. Daarnaast zijn de recepten klikbaar en gaat de gebruiker naar de voglende activity. Hier wordt de informatie van het gekozen recept ingeladen. De ingredienten, bereidingstijd en link naar een recept worden ingeladen. 
+- _Input:_ De gebruiker wordt gevraagd om op de homepage zijn 'leftover' ingredienten in te vullen. Door vervolgens op de knop 'Create' te klikken worden er recepten weergegeven op een nieuwe activity in de vorm van afbeeldingen. Door de afbeeldingen kan gescrolld worden om het juiste recept te vinden. Daarnaast zijn de recepten klikbaar en gaat de gebruiker naar de voglende activity. Hier wordt de informatie van het gekozen recept ingeladen. De ingredienten, bereidingstijd en link naar een recept worden ingeladen.
+- _Needed ingredients:_ De ingredienten die niet zijn ingevuld door de gebruiker worden weergeven met prijs via de ShopScraper API. Hierdoor krijgt de gebruiker informatie over hoeveel het kost om het gerecht te maken met de nog bijbehorende ingredienten.
 - _Favorites:_ De gebruiker heeft de mogelijkheid om zijn of haar recepten op te slaan om later terug te kunnen komen naar recepten die graag nog een keer gemaakt mogen worden.
 #### MVP
 - _Input_
@@ -28,6 +29,8 @@ Food API / Yummly / RecipePuppy (nog niet duidelijk welke API)
 - _Yummly:_ https://developer.yummly.com/
 - _Food API:_ https://spoonacular.com/food-api
 - _RecipePuppy:_ http://www.recipepuppy.com/about/api/
+#### Other
+- _ShopScraper:_ https://github.com/wvengen/shopscraper-api
 
 ### External components
 Firebase
