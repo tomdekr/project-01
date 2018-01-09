@@ -15,8 +15,12 @@ Mijn doelgroep is duidelijk gericht op studenten die graag de restjes op willen 
 - _Needed ingredients:_ De ingredienten die niet zijn ingevuld door de gebruiker worden weergeven met prijs via de ShopScraper API. Hierdoor krijgt de gebruiker informatie over hoeveel het kost om het gerecht te maken met de nog bijbehorende ingredienten.
 - _Favorites:_ De gebruiker heeft de mogelijkheid om zijn of haar recepten op te slaan om later terug te kunnen komen naar recepten die graag nog een keer gemaakt mogen worden.
 #### MVP
+- _Login/Signup_
 - _Input_
 - _Shown recipes_
+- _Favorites_
+- _Needed ingredients_
+
 
 ### Sketch
 #### Main / simple structure:
