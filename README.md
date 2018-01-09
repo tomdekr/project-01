@@ -28,7 +28,7 @@ Mijn doelgroep is duidelijk gericht op studenten die graag de restjes op willen 
 
 ### Extra Features / Hardest part
 - _Show more detailed information in app:_ Door het gebruik van de API's wordt er gelinked naar een website waar de instructies van het recept staan. Ik wil als extra feature kijken of het mogelijk is om die informatie te weergeven in app zonder van de app weg te hoeven gaan als gebruiker. (Waarschijnlijk door acceptatie van Yummly als developer nu goed mogelijk)
-- _Show/Make Groups_: De mogelijkheid om jouw "Bro's" in een groep te hebben in de app en vervolgens de gemaakte gerechten bij te kunnen houden in een feed; zodat er niet 3x hetzelfde gerecht gemaakt wordt in een studentenhuis.
+- _Show/Make Groups_: De mogelijkheid om jouw "Bro's" in een groep te hebben in de app en vervolgens de gemaakte gerechten bij te kunnen houden in een feed; zodat er niet 3x hetzelfde gerecht wordt gemaakt in een studentenhuis.
 
 ### Data sources
 Yummly API (zojuist geaccepteerd)
