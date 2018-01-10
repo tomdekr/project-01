@@ -30,9 +30,10 @@ Via scherm 2 kan de gebruiker klikken het groepsicontje waardoor de gebruiker do
 Op Scherm 7 wordt er weergeven welke users de app gebruiken, hierbij kan de gebruiker filteren in de database en zoeken naar de juiste vrienden. Vervolgens kan een user toegevoegd worden als vriend.
 
 #### Screen #8 (FriendsActivity)
-
+Op dit scherm worden alle vrienden weergeven die op scherm 7 zijn toegevoegd. Dit zijn de vrienden die je kan bekijken of kan toevoegen aan je groep.
 
 #### Screen #9 (FavoriteRecipesActivity)
+Dit scherm is voor de recepten die je persoonlijk zelf hebt opgeslagen als favoriet. Hier kan je vervolgens de recepten aan je groep toevoegen aan de groepsreceptenlijst. 
 
 
 #### Classes:
