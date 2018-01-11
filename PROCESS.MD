@@ -3,6 +3,7 @@
 - Design.md noteren
 - LoginActivity gemaakt
 - SignupActivity gemaakt
+- Logo Bro-Cook gemaakt met Photoshop
 
 #### 11-01-2018:
 - MainActivity maken
