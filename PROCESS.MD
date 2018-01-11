@@ -4,4 +4,9 @@
 - LoginActivity gemaakt
 - SignupActivity gemaakt
 
+#### 11-01-2018:
+- MainActivity maken
+- Functie voor API recepten data schrijven
+- RecipeImageActivity maken om daar data van MainActivity heen te sturen
+
 
