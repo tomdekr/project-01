@@ -10,4 +10,9 @@
 - Functie voor API recepten data schrijven
 - RecipeImageActivity maken om daar data van MainActivity heen te sturen
 
+#### 12-01-2018:
+- App pitch idee gegeven met presentatie
+- Feedback toepassen op de app --> verbetering in user structuur
+
+
 
