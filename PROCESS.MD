@@ -18,7 +18,7 @@
 
 #### 15-01-2018:
 - Planning voor de week maken
-- 
+- Firebase functionaliteit laten werken in alle tot nu toe gemaakte activiteiten
 
 
 
