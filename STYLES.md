@@ -1,10 +1,26 @@
 ## Styles.md
 ### Styleguide regels:
-1. *Classes & Interfaces:*
-Written in UpperCamelCase. For example RadialSlider.
+*Classes & Interfaces:*
+- Geschreven in UpperCamelCase. (Bijvoorbeeld: Users)
 
-2. *Methods:*
-Written in lowerCamelCase. For example setValue.
+*Methods:*
+- Geschreven in lowerCamelCase. (Bijvoorbeeld: addToFavorites)
 
-3. *Fields:*
-Written in lowerCamelCase.
+*Fields:*
+- Geschreven in lowerCamelcase. 
+
+*Fields & Variables:*
+Prefer single declaration per line.
+- Onder elkaar declaraties schrijven en niet naast elkaar (niet zoals: String username, password;)
+- Voor variabelen geen dubbele namen gebruiken
+
+*Spacing:*
+- Indents voor 'Blocks' 2 spaties gebruiken in plaats van 4.
+- Indents voor lijn wraps 4 spaties gebruiken in plaats van 8.
+
+
+
+
+
+
+
