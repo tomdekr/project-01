@@ -1,10 +1,10 @@
 ## Styles.md
 ### Styleguide regels:
-1. Classes & Interfaces
+1. *Classes & Interfaces:*
 Written in UpperCamelCase. For example RadialSlider.
 
-2. Methods
+2. *Methods:*
 Written in lowerCamelCase. For example setValue.
 
-3. Fields
+3. *Fields:*
 Written in lowerCamelCase.
