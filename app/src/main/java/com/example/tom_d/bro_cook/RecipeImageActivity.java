@@ -43,8 +43,6 @@ public class RecipeImageActivity extends AppCompatActivity {
         //Thanks to: https://stackoverflow.com/questions/43095334/java-convert-string-to-use-in-url-as-part-of-a-get
         final EditText inputText = (EditText)findViewById(R.id.editTextInput);
 
-
-
         // Instantiate the RequestQueue.
         final RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -152,7 +150,7 @@ public class RecipeImageActivity extends AppCompatActivity {
                                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                         // Shows which item you clicked with toast
                                         String moviePicked = "You selected " +
-                                                String.valueOf(mListView.getItemAtPosition(i));
+                                                String.valueOf(mListViewId.getItemAtPosition(i));
                                         moviePicked = moviePicked.replaceAll("-"," ");
                                         moviePicked = moviePicked.replaceAll("[0-9]", " ");
 
