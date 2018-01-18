@@ -21,6 +21,19 @@
 - Firebase functionaliteit laten werken in alle tot nu toe gemaakte activiteiten
 - Recepten op slaan per user (AddtoFavorites functie)
 
+#### 16-01-2018:
+- Bug fixen; maar een aantal van de x aantal opgehaalde recepten werken bij RecipeInfoActivity
+- Classes User & Group aangemaakt
+
+#### 17-01-2018:
+- Groep per huishouden is in te vullen op Firebase Database
+- Style guide maken
+
+#### 18-01-2018:
+
+
+
+
 
 
 
