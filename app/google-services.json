@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "199833200942",
+    "firebase_url": "https://brocook-6ed95.firebaseio.com",
+    "project_id": "brocook-6ed95",
+    "storage_bucket": "brocook-6ed95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:199833200942:android:24fdd57bfa2e555f",
+        "android_client_info": {
+          "package_name": "com.example.tom_d.bro_cook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "199833200942-ccnscq0ck06cktsq58fvo2ivdeidaue7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tom_d.bro_cook",
+            "certificate_hash": "8bcaee32f5020e73cbaa13c82bed12b6e0483724"
+          }
+        },
+        {
+          "client_id": "199833200942-vjk8e1rdpeium92u3f6p0v16uveoj4sv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5VdSkFOrZx0urv38bQu6bP1lYiL7oYsY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "199833200942-vjk8e1rdpeium92u3f6p0v16uveoj4sv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
