@@ -33,6 +33,8 @@
 - Begin gemaakt met RecyclerView
 - Adapter en Recipe Classes gemaakt
 - RecipeInfoActivity design idee af
+- Recepten op slaan per groep (AddtoGroupFavorites functie)
+
 
 #### 19-01-2018:
 - Keuze maken tussen images in de CardView volledig te weergeven als soort van stacked images of om de images klein te laten omdat sommige niet goed van kwaliteit zijn
