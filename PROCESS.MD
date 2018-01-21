@@ -40,6 +40,12 @@
 - Keuze maken tussen images in de CardView volledig te weergeven als soort van stacked images of om de images klein te laten omdat sommige niet goed van kwaliteit zijn
 - Favorites werkt voor de user met data van Firebase
 
+#### 20-01-2018:
+- RecyclerView afgemaakt, plaatjes van Yummly API zijn te weergeven en met receptnaam.
+
+
+#### 21-01-2018:
+- RecyclerView 'onItemClick' gemaakt om recept id door te kunnen sturen naar volgende activity
 
 
 
