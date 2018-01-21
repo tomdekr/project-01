@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.tom_d.bro_cook.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -20,6 +19,15 @@ import java.util.ArrayList;
 public class Adapter extends RecyclerView.Adapter<Adapter.ExampleViewHolder> {
     private Context mContext;
     private ArrayList<Recipe> mRecipeList;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     public Adapter(Context context, ArrayList<Recipe> recipeList){
         mContext = context;
@@ -28,7 +36,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ExampleViewHolder> {
 
     @Override
     public ExampleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.example_recipe, parent, false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.example_item, parent, false);
         return new ExampleViewHolder(v);
     }
 
@@ -56,6 +64,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ExampleViewHolder> {
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageView);
             mTextViewRecipe = itemView.findViewById(R.id.textView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            mListener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
-    }
-}
+    }}

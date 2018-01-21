@@ -7,11 +7,13 @@ package com.example.tom_d.bro_cook;
 public class Recipe {
     private String mImageUrl;
     private String mRecipe;
+    private String mId;
 
 
-    public Recipe(String imageUrl, String recipe){
+    public Recipe(String imageUrl, String recipe, String id){
         mImageUrl = imageUrl;
         mRecipe = recipe;
+        mId = id;
     }
 
     public String getImageUrl(){
@@ -21,4 +23,9 @@ public class Recipe {
     public String getRecipe(){
         return mRecipe;
     }
+
+    public String getId(){
+        return mId;
+    }
+
 }
