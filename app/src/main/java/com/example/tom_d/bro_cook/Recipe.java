@@ -9,7 +9,6 @@ public class Recipe {
     private String mRecipe;
     private String mId;
 
-
     public Recipe(String imageUrl, String recipe, String id){
         mImageUrl = imageUrl;
         mRecipe = recipe;
@@ -27,5 +26,9 @@ public class Recipe {
     public String getId(){
         return mId;
     }
+
+
+
+
 
 }

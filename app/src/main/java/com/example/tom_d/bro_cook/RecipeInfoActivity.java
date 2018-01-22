@@ -102,6 +102,7 @@ public class RecipeInfoActivity extends AppCompatActivity {
 
                         try {
                             JSONObject newObject = (JSONObject) new JSONObject(response);
+                            JSONObject img = newObject.getJSONObject("images");
 
 
                             String Name = newObject.getString("name");
@@ -109,6 +110,7 @@ public class RecipeInfoActivity extends AppCompatActivity {
                             //String cookTime = newObject.getString("cookTime");
                             String ingredients = newObject.getString("ingredientLines");
                             String recipeLink = newObject.getString("source");
+                            String imageUrl = img.getString("hostedLargeUrl");
 
                             ingredients = ingredients.replaceAll("\"","");
 

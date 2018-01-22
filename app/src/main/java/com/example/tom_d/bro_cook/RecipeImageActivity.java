@@ -78,8 +78,6 @@ public class RecipeImageActivity extends AppCompatActivity implements Adapter.On
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        ArrayList<String> listdataid = new ArrayList<String>();
-
                         try {
                             JSONArray jsonArray = response.getJSONArray("matches");
 
@@ -132,11 +130,9 @@ public class RecipeImageActivity extends AppCompatActivity implements Adapter.On
 
     @Override
     public void onItemClick(int position) {
-        Intent detailIntent = new Intent(this, RecipeInfoActivity.class);
+        Intent detailIntent = new Intent(this, RecipeDetailActivity.class);
         Recipe clickedItem = mRecipeList.get(position);
 
-        detailIntent.putExtra(EXTRA_URL, clickedItem.getImageUrl());
-        detailIntent.putExtra(EXTRA_CREATOR, clickedItem.getRecipe());
         detailIntent.putExtra(EXTRA_ID, clickedItem.getId());
         Log.v("id", clickedItem.getId());
 
