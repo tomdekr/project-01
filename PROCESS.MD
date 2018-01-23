@@ -47,6 +47,11 @@
 #### 21-01-2018:
 - RecyclerView 'onItemClick' gemaakt om recept id door te kunnen sturen naar volgende activity
 
+#### 22-01-2018:
+- RecipeDetailActivity gemaakt ipv RecipeInfoActivity, opgeschoonde versie met een betere weergave van het recept.
+
+#### 23-01-2018:
+- Firebase group bug gefixed ( hij verving me hele tak van info van een groep als een andere user bij de groep ging ).
 
 
 
