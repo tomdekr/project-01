@@ -1,13 +1,17 @@
 package com.example.tom_d.bro_cook;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.tom_d.bro_cook.ProfileActivity;
 import com.example.tom_d.bro_cook.R;
@@ -62,18 +66,20 @@ public class FavoriteActivity extends AppCompatActivity {
                     String values = null;
                     values = children.getValue().toString();
 
+
+
                     // Split's the list by ' , ' to make all movie titles with unique stand alone
                     String[] lijst = values.split(",");
-                    Log.v("Tweede key", "   " + Arrays.toString(lijst)); // Log to check spot in branch
+                    Log.v("idk key", "   " + Arrays.toString(lijst)); // Log to check spot in branch
 
                     // Split's the remaining list for every unique one on ' = ' and adds all values from them to the new arraylist
                     for (int i = 0 ; i < lijst.length; i++ ){
                         String[] lijst2 = values.split("=");
                         allTitels.add(lijst2[i]);
-
-
-
                     }
+//                    allTitels.get(allTitels.size() -1);
+
+
                     Log.v("keyResult","   " + allTitels); // Log to check result
 
                     // Makes the arraylist from api visible in a row_layout
@@ -83,10 +89,38 @@ public class FavoriteActivity extends AppCompatActivity {
                                     R.layout.row_layout,
                                     allTitels
                             );
-                    ListView mListView = findViewById(R.id.listViewMovies2);
+                    final ListView mListView = findViewById(R.id.listViewMovies2);
 
                     //Sets the adapter to make the final visualisation for the listview
                     mListView.setAdapter(adapter);
+
+                    // Makes the listview item's clickable
+                    try {
+                        mListView.setOnItemClickListener(
+                                new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    // Shows how to add the movie to favorites
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                        String itemPicked = "You have selected " + String.valueOf(adapterView.getItemAtPosition(position));
+                                        Toast.makeText(FavoriteActivity.this, itemPicked, Toast.LENGTH_LONG).show();
+
+
+                                        SharedPreferences settings = FavoriteActivity.this.getSharedPreferences("iditem", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = settings.edit();
+                                        editor.putString("iditem", String.valueOf(adapterView.getItemAtPosition(position)));
+                                        editor.commit();
+                                        editor.apply();
+                                        Log.v("yolo key", String.valueOf(adapterView.getItemAtPosition(position)));
+
+
+                                        Intent detailIntent = new Intent(FavoriteActivity.this, RecipeDetailActivity.class);
+                                        startActivity(detailIntent);
+                                    }
+
+                                });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                 }
             }

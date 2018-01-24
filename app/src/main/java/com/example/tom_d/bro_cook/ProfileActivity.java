@@ -81,22 +81,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }
         });
-//
-//        findViewById(R.id.buttonUsers).setOnClickListener(new View.OnClickListener() {
-//                                                              // Executes new activity to AllUsersActivity
-//                                                              @Override
-//                                                              public void onClick(View view) {
-//
-//                                                                  switch (view.getId()) {
-//                                                                      case R.id.buttonUsers:
-//                                                                          finish();
-//                                                                          startActivity(new Intent(ProfileActivity.this, AllUsersActivity.class));
-//                                                                          break;
-//                                                                  }
-//                                                              }
-//                                                          }
-//
-//        );
+
 }
 
 
@@ -163,15 +148,16 @@ public class ProfileActivity extends AppCompatActivity {
 //        Map secondPost = new HashMap();
 //        secondPost.put("groupName",groupName);
 //
-        currentUserDb.setValue(firstPost);
+        currentUserDb.updateChildren(firstPost);
 //        groupDb.setValue(secondPost);
 
         // Creates a unique key for a group id
         String id = groupDb.push().getKey();
 
 //        Group newGroup = new Group(groupName);
-
-        groupDb.setValue(groupName);
+        Map secoondPost = new HashMap();
+        secoondPost.put("groupName",groupName);
+        groupDb.updateChildren(secoondPost);
 
         // Save the groupName for RecipeInfoActivity
         SharedPreferences.Editor editor = getSharedPreferences("settings", MODE_PRIVATE).edit();

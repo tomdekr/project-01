@@ -90,17 +90,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToActivity(View view) {
         switch (view.getId()) {
-            case R.id.buttonProfile:
-                finish();
-                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                break;
-        }
-        switch (view.getId()) {
             case R.id.buttonGroup:
                 finish();
                 startActivity(new Intent(MainActivity.this, GroupActivity.class));
                 break;
         }
+        switch (view.getId()) {
+            case R.id.buttonProfile:
+                finish();
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                break;
+        }
+
     }
     @Override
     public void onBackPressed() {

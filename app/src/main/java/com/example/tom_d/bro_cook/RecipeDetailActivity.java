@@ -51,11 +51,13 @@ public class RecipeDetailActivity extends AppCompatActivity {
         mRequestQueue = Volley.newRequestQueue(this);
         parseJSON();
 
-        findViewById(R.id.buttonAdd).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.imageView5).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Adds the movie to favorites if image 'heart' is clicked
+                // Adds the recipe to favorites if image 'heart' is clicked
                 addToFavorite();
+                findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -69,6 +71,13 @@ public class RecipeDetailActivity extends AppCompatActivity {
     }
 
     private void parseJSON() {
+
+        SharedPreferences settings = RecipeDetailActivity.this.getSharedPreferences("id", MODE_PRIVATE);
+        String id = settings.getString("id", "");
+
+        Log.v("yolo key", id);
+
+
         Intent intent = getIntent();
         String input = intent.getStringExtra(EXTRA_ID);
 
@@ -77,6 +86,11 @@ public class RecipeDetailActivity extends AppCompatActivity {
         // Replaces any space in url (input) for underscore to prevent error
         url = url.replace("recipe-id", String.valueOf(input));
 
+
+
+        if (id != null){
+            url = url.replace("recipe-id", String.valueOf(id));
+        }
 
 
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
