@@ -53,6 +53,12 @@
 #### 23-01-2018:
 - Firebase group bug gefixed ( hij verving me hele tak van info van een groep als een andere user bij de groep ging ).
 
+#### 24-01-2018:
+- Verder gewerkt aan de GroupActivity met data juiste manier inladen
+
+#### 25-01-2018:
+- 
+
 
 
 
