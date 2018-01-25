@@ -55,6 +55,7 @@
 
 #### 24-01-2018:
 - Verder gewerkt aan de GroupActivity met data juiste manier inladen
+- Aantal bugs gevonden
 
 #### 25-01-2018:
 - 
