@@ -55,77 +55,77 @@ public class GroupActivity extends AppCompatActivity {
         myRef = mDatabase.getReferenceFromUrl("https://brocook-6ed95.firebaseio.com/userInfo/" + currentUserDisplay + ("/groupName/"));
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                 @Override
-                                                 // Listens if there is made a change to the 'favorites' of the current user
-                                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                                     String data = null;
-                                                     data = dataSnapshot.getValue().toString();
-                                                     Log.v("Eerste key", "   " + data.toString()); // Log to check spot in branch
+             @Override
+             // Listens if there is made a change to the 'favorites' of the current user
+             public void onDataChange(DataSnapshot dataSnapshot) {
+                 String data = null;
+                 data = dataSnapshot.getValue().toString();
+                 Log.v("Eerste key", "   " + data.toString()); // Log to check spot in branch
 
 
-                                                     // Split's the list by ' , ' to make all movie titles with unique stand alone
-                                                     String[] lijst = data.split(",");
-                                                     Log.v("idk key", "   " + Arrays.toString(lijst)); // Log to check spot in branch
+                 // Split's the list by ' , ' to make all movie titles with unique stand alone
+                 String[] lijst = data.split(",");
+                 Log.v("idk key", "   " + Arrays.toString(lijst)); // Log to check spot in branch
 
-                                                     // Split's the remaining list for every unique one on ' = ' and adds all values from them to the new arraylist
-                                                     for (int i = 0; i < lijst.length; i++) {
-                                                         allTitels.add(lijst[i]);
-                                                     }
-
-
-                                                     String infogroup = allTitels.toString().replace("[", "").replace("]", "");
-                                                     Log.v("infoResult", "   " + infogroup); // Log to check result
-
-                                                     myRefGroup = mDatabase.getReferenceFromUrl("https://brocook-6ed95.firebaseio.com/groupNames/" + infogroup + ("/"));
+                 // Split's the remaining list for every unique one on ' = ' and adds all values from them to the new arraylist
+                 for (int i = 0; i < lijst.length; i++) {
+                     allTitels.add(lijst[i]);
+                 }
 
 
-                                                     myRefGroup.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                         @Override
-                                                         // Listens if there is made a change to the 'favorites' of the current user
-                                                         public void onDataChange(DataSnapshot dataSnapshot) {
-                                                             for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
-                                                                 String data = null;
-                                                                 data = dataSnapshot2.getValue().toString();
-                                                                 Log.v("Eerste key", "   " + data.toString()); // Log to check spot in branch
+                 String infogroup = allTitels.toString().replace("[", "").replace("]", "");
+                 Log.v("infoResult", "   " + infogroup); // Log to check result
 
-                                                                 String[] lijst = data.split("=");
-                                                                 String lijst2 = Arrays.toString(lijst);
-                                                                 String[] lijst3 = lijst2.split(",");
+                 myRefGroup = mDatabase.getReferenceFromUrl("https://brocook-6ed95.firebaseio.com/groupNames/" + infogroup + ("/"));
+
+
+                 myRefGroup.addListenerForSingleValueEvent(new ValueEventListener() {
+                     @Override
+                     // Listens if there is made a change to the 'favorites' of the current user
+                     public void onDataChange(DataSnapshot dataSnapshot) {
+                         for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
+                             String data = null;
+                             data = dataSnapshot2.getValue().toString();
+                             Log.v("Eerste key", "   " + data.toString()); // Log to check spot in branch
+
+                             String[] lijst = data.split("=");
+                             String lijst2 = Arrays.toString(lijst);
+                             String[] lijst3 = lijst2.split(",");
 
 
 //                String[] lijst3 = test.split("=");
 
-                                                             // Split's the remaining list for every unique one on ' = ' and adds all values from them to the new arraylist
-                                                             for (int i = 0; i < lijst3.length; i++) {
+                         // Split's the remaining list for every unique one on ' = ' and adds all values from them to the new arraylist
+                         for (int i = 0; i < lijst3.length; i++) {
 
-                                                                 allTitels.add(lijst3[i]);
+                             allTitels.add(lijst3[i]);
 
-                                                             }
-
-
-
-                                                             Log.v("keyResult", "   " + allTitels); // Log to check result
+                         }
 
 
-                                                             // Makes the arraylist from api visible in a row_layout
-                                                             ArrayAdapter<String> adapter =
-                                                                     new ArrayAdapter<String>(
-                                                                             getApplicationContext(),
-                                                                             R.layout.row_layout,
-                                                                             allTitels
-                                                                     );
-                                                             final ListView mListView = findViewById(R.id.listViewMovies2);
 
-                                                             //Sets the adapter to make the final visualisation for the listview
-                                                             mListView.setAdapter(adapter);
-                                                         }}
+                         Log.v("keyResult", "   " + allTitels); // Log to check result
 
-                                                         @Override
-                                                         public void onCancelled(DatabaseError databaseError) {
 
-                                                         }
-                                                     });
-                                                 }
+                         // Makes the arraylist from api visible in a row_layout
+                         ArrayAdapter<String> adapter =
+                                 new ArrayAdapter<String>(
+                                         getApplicationContext(),
+                                         R.layout.row_layout,
+                                         allTitels
+                                 );
+                         final ListView mListView = findViewById(R.id.listViewMovies2);
+
+                         //Sets the adapter to make the final visualisation for the listview
+                         mListView.setAdapter(adapter);
+                     }}
+
+                     @Override
+                     public void onCancelled(DatabaseError databaseError) {
+
+                     }
+                 });
+             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {

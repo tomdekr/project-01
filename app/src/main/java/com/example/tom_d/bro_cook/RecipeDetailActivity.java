@@ -2,6 +2,7 @@ package com.example.tom_d.bro_cook;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,6 +35,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "id";
     DatabaseReference databaseBrancheUser;
     DatabaseReference databaseBrancheGroup;
+    DatabaseReference drRecipe;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
     private RequestQueue mRequestQueue;
@@ -51,15 +53,28 @@ public class RecipeDetailActivity extends AppCompatActivity {
         mRequestQueue = Volley.newRequestQueue(this);
         parseJSON();
 
+        if (findViewById(R.id.imageView6).getVisibility() == View.INVISIBLE){
         findViewById(R.id.imageView5).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Adds the recipe to favorites if image 'heart' is clicked
-                addToFavorite();
                 findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+                addToFavorite();
 
             }
-        });
+        });}
+
+        if (findViewById(R.id.imageView6).getVisibility() == View.VISIBLE){
+            findViewById(R.id.imageView6).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Adds the recipe to favorites if image 'heart' is clicked
+                    findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
+                    removeFromFavorites();
+
+                }
+            });}
+
 
         findViewById(R.id.buttonGroup).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,25 +86,28 @@ public class RecipeDetailActivity extends AppCompatActivity {
     }
 
     private void parseJSON() {
-
-        SharedPreferences settings = RecipeDetailActivity.this.getSharedPreferences("id", MODE_PRIVATE);
-        String id = settings.getString("id", "");
-
-        Log.v("yolo key", id);
-
-
         Intent intent = getIntent();
         String input = intent.getStringExtra(EXTRA_ID);
-
+        String id = intent.getStringExtra("id");
+        String broId = intent.getStringExtra("broId");
         String url = ("http://api.yummly.com/v1/api/recipe/recipe-id?_app_id=d77dc66c&_app_key=e03fc2ee7af2a8271e7200e35155104e");
 
         // Replaces any space in url (input) for underscore to prevent error
         url = url.replace("recipe-id", String.valueOf(input));
 
+        if (input != null){
+            findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
 
+        }
 
+        Log.v("check dit:", id);
         if (id != null){
-            url = url.replace("recipe-id", String.valueOf(id));
+            url = url.replace("recipe-id", id);
+//            findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+        }
+        if (broId != null){
+            url = url.replace("recipe-id", broId);
+//            findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
         }
 
 
@@ -109,31 +127,42 @@ public class RecipeDetailActivity extends AppCompatActivity {
                                 Picasso.with(RecipeDetailActivity.this).load(imageUrl).fit().centerInside().into(imageView);
                             }
 
-
                             } catch (JSONException e1) {
                             e1.printStackTrace();
                         }
 
 
                         try{
-                                String recipe = response.getString("name");
-                                String prepTime = response.getString("totalTime");
-                                String ingredients = response.getString("ingredientLines");
+                            JSONObject jsonObjectSource = response.getJSONObject("source");
 
-                                String prepTimeText = "Preparation time: "+ prepTime;
-                                String ingredientsText = "Ingredients used: " + ingredients;
+                            String recipe = response.getString("name");
+                            String prepTime = response.getString("totalTime");
+                            String ingredients = response.getString("ingredientLines");
+                            String sourceUrl = jsonObjectSource.getString("sourceRecipeUrl");
 
-                                Log.v("prep", prepTimeText);
-                                Log.v("name", recipe);
-                                Log.v("ingredients", ingredientsText);
+                            ingredients = ingredients.replace("[", "").replace("]", "").replace("\"","");
 
-                                TextView recipeName = findViewById(R.id.textView);
-                                TextView prepTimeString = findViewById(R.id.textView2);
-                                TextView ingredientsTextView = findViewById(R.id.textView3);
+                            String prepTimeText = "Preparation time: "+ prepTime;
+                            String ingredientsText = "Ingredients used: " + ingredients;
+                            String sourceLinkText = "Recipe link: " + sourceUrl;
 
-                                recipeName.setText(recipe);
-                                prepTimeString.setText(prepTimeText);
-                                ingredientsTextView.setText(ingredientsText);
+                            Log.v("prep", prepTimeText);
+                            Log.v("name", recipe);
+                            Log.v("ingredients", ingredientsText);
+                            Log.v("source", sourceLinkText);
+
+                            TextView recipeName = findViewById(R.id.textView);
+                            TextView prepTimeString = findViewById(R.id.textView2);
+                            TextView ingredientsTextView = findViewById(R.id.textView3);
+                            TextView sourcelinkTextView = findViewById(R.id.textView4);
+
+                            recipeName.setText(recipe);
+                            prepTimeString.setText(prepTimeText);
+                            ingredientsTextView.setText(ingredientsText);
+                            sourcelinkTextView.setText(sourceLinkText);
+
+
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -153,18 +182,30 @@ public class RecipeDetailActivity extends AppCompatActivity {
         // Gets the recipe from the list
         Intent intent = getIntent();
         String input = intent.getStringExtra("id");
+        String urlInput = intent.getStringExtra("imageUrl");
+        String recipeInput = intent.getStringExtra("recipe");
+
 
 
         // Creates a unique key for a recipe id
         String id = databaseBrancheUser.push().getKey();
+//
+//        User newUser = new User(input);
+//
+//        // Saves the recipe with username and unique key to Firebase Database
+//        databaseBrancheUser.child(currentUser.getDisplayName()).child(id).setValue(input);
 
-        User newUser = new User(input);
-
-        // Saves the recipe with username and unique key to Firebase Database
-        databaseBrancheUser.child(currentUser.getDisplayName()).child(id).setValue(input);
+        Recipe recipe = new Recipe(urlInput,recipeInput,input);
+        databaseBrancheUser.child(currentUser.getDisplayName()).child(id).setValue(recipe);
 
         // Shows toast
         Toast.makeText(this,"Favorite added to your favorites", Toast.LENGTH_LONG).show();
+    }
+
+    private void removeFromFavorites() {
+        DatabaseReference delete = FirebaseDatabase.getInstance().getReference(currentUser.getDisplayName()).child("6-Ingredient-Orange-Chicken-1614114");
+
+        delete.removeValue();
     }
 
     private void addToGroupFavorites(){
@@ -175,7 +216,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         // Gets the recipe from the list
         Intent intent = getIntent();
         String input = intent.getStringExtra("id");
-
+        String urlInput = intent.getStringExtra("imageUrl");
+        String recipeInput = intent.getStringExtra("recipe");
 
         // Creates a unique key for a recipe id
         String id = databaseBrancheGroup.push().getKey();
@@ -184,7 +226,12 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         if (restoredGroupName != null){
             // Saves the recipe with username and unique key to Firebase Database
-            getgroupname.child(restoredGroupName).child(id).setValue(input);
+
+//            getgroupname.child(restoredGroupName).child(id).setValue(input);
+
+            Recipe recipe = new Recipe(urlInput,recipeInput,input);
+            getgroupname.child(restoredGroupName).child(id).setValue(recipe);
+
             // Shows toast
             Toast.makeText(this,"Favorite added to the group", Toast.LENGTH_LONG).show();
         }}

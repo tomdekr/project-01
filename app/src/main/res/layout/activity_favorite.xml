@@ -29,7 +29,7 @@
 
     <ListView
         android:id="@+id/listViewMovies2"
-        android:layout_width="280dp"
+        android:layout_width="344dp"
         android:layout_height="362dp"
         android:layout_gravity="center"
         android:layout_marginEnd="8dp"

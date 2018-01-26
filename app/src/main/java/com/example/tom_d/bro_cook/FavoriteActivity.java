@@ -114,6 +114,8 @@ public class FavoriteActivity extends AppCompatActivity {
 
 
                                         Intent detailIntent = new Intent(FavoriteActivity.this, RecipeDetailActivity.class);
+                                        detailIntent.putExtra("id", String.valueOf(adapterView.getItemAtPosition(position)));
+
                                         startActivity(detailIntent);
                                     }
 

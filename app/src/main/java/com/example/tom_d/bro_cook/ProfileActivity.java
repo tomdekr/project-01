@@ -76,7 +76,7 @@ public class ProfileActivity extends AppCompatActivity {
                 switch (view.getId()) {
                     case R.id.buttonFavorites:
                         finish();
-                        startActivity(new Intent(ProfileActivity.this, FavoriteActivity.class));
+                        startActivity(new Intent(ProfileActivity.this, FavoriteList.class));
                         break;
                 }
             }
