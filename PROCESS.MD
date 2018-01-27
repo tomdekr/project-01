@@ -65,6 +65,9 @@
 - RecipeDetailActivity, recipe url link toegevoegd uit api
 - presentatie over MVP
 
+#### 27-01-2018:
+- FavoriteList activity bug gefixed, kon de opgehaalde recepten uit favorieten niet ophalen en omzetten in recyclerview.
+
 
 
 
