@@ -58,7 +58,12 @@
 - Aantal bugs gevonden
 
 #### 25-01-2018:
-- 
+- Firebase database methode van opslaan van data verbeterd.
+- Aantal design elementen aan RecipeDetailActivity toegevoegd
+
+#### 26-01-2018:
+- RecipeDetailActivity, recipe url link toegevoegd uit api
+- presentatie over MVP
 
 
 
