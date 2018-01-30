@@ -42,14 +42,18 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ExampleViewHolder> {
 
     @Override
     public void onBindViewHolder(ExampleViewHolder holder, int position) {
-        Recipe currentRecipe = mRecipeList.get(position);
 
+
+        Recipe currentRecipe = mRecipeList.get(position);
+        if (currentRecipe != null){
         String imageUrl = currentRecipe.getImageUrl();
         String recipeName = currentRecipe.getRecipe();
+        String rating = currentRecipe.getRating();
 
         holder.mTextViewRecipe.setText(recipeName);
+        holder.mTextViewRating.setText(rating);
         Picasso.with(mContext).load(imageUrl).fit().centerInside().into(holder.mImageView);
-    }
+    }}
 
     @Override
     public int getItemCount() {
@@ -59,11 +63,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ExampleViewHolder> {
     public class ExampleViewHolder extends RecyclerView.ViewHolder{
         public ImageView mImageView;
         public TextView mTextViewRecipe;
+        public TextView mTextViewRating;
 
         public ExampleViewHolder(View itemView) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageView);
             mTextViewRecipe = itemView.findViewById(R.id.textView);
+            mTextViewRating = itemView.findViewById(R.id.rating);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

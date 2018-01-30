@@ -32,6 +32,7 @@ public class RecipeImageActivity extends AppCompatActivity implements Adapter.On
     public static final String EXTRA_ID = "id";
     public static final String EXTRA_CREATOR = "recipe";
     public static final String EXTRA_URL = "imageUrl";
+    public static final String EXTRA_INT = "rating";
 
     private RecyclerView mRecyclerView;
     private Adapter mExampleAdapter;
@@ -95,23 +96,17 @@ public class RecipeImageActivity extends AppCompatActivity implements Adapter.On
 //                        }
                                 String recipeName = matches.getString("recipeName");
                                 String recipeId = matches.getString("id");
+                                String rating = matches.getString("rating");
+                                boolean favorite = true;
 
 
-                                mRecipeList.add(new Recipe(imageUrl,recipeName,recipeId));
+
+                                mRecipeList.add(new Recipe(imageUrl,recipeName,recipeId,rating));
                                 mExampleAdapter = new Adapter(RecipeImageActivity.this, mRecipeList);
                                 mRecyclerView.setAdapter(mExampleAdapter);
                                 mExampleAdapter.setOnItemClickListener(RecipeImageActivity.this);
 
-
-
-
-
                             }
-
-
-
-
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -137,6 +132,7 @@ public class RecipeImageActivity extends AppCompatActivity implements Adapter.On
         detailIntent.putExtra(EXTRA_ID, clickedItem.getId());
         detailIntent.putExtra(EXTRA_CREATOR,clickedItem.getRecipe());
         detailIntent.putExtra(EXTRA_URL,clickedItem.getImageUrl());
+        detailIntent.putExtra(EXTRA_INT, clickedItem.getRating());
 
         Log.v("id", clickedItem.getId());
 

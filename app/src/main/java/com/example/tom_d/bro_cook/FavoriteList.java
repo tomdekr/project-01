@@ -1,5 +1,6 @@
 package com.example.tom_d.bro_cook;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,14 +20,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteList extends AppCompatActivity {
+public class FavoriteList extends AppCompatActivity implements Adapter.OnItemClickListener {
+    public static final String EXTRA_ID = "id";
     private RecyclerView mRecyclerView;
     private Adapter mExampleAdapter;
     private ArrayList<Recipe> mRecipeList;
     DatabaseReference mDatabaseFavorites;
     FirebaseAuth mAuth;
     FirebaseUser user;
-    ArrayList<Recipe> favoriteList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +38,7 @@ public class FavoriteList extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         final String currentUserDisplay = user.getDisplayName();
 
-        mDatabaseFavorites = FirebaseDatabase.getInstance().getReferenceFromUrl("https://brocook-6ed95.firebaseio.com/userInfo/"+currentUserDisplay);
+        mDatabaseFavorites = FirebaseDatabase.getInstance().getReferenceFromUrl("https://brocook-6ed95.firebaseio.com/userInfo/"+currentUserDisplay+"/");
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(FavoriteList.this));
@@ -45,7 +47,7 @@ public class FavoriteList extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
 
 
-        favoriteList = new ArrayList<>();
+        mRecipeList = new ArrayList<>();
     }
 
     @Override
@@ -55,14 +57,24 @@ public class FavoriteList extends AppCompatActivity {
         mDatabaseFavorites.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                favoriteList.clear();
-                for( DataSnapshot favoriteSnapshot : dataSnapshot.getChildren()){
-                    Recipe favorites = favoriteSnapshot.getValue(Recipe.class);
-                    favoriteList.add(favorites);
-                    Log.v("check hier", favoriteSnapshot.toString());
+                mRecipeList.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) //--> At this point, ds is an iterator of dataSnapshot; it will iterate the dataSnapshot's children. In this case, the first child's type is String, thus the first iteration of ds will have a type of String.
+                {
+                    System.out.println(dataSnapshot.getValue());
+                    System.out.println(ds.getValue());
+
+                    String id = (String) ds.child("id").getValue();
+                    String imageUrl = (String) ds.child("imageUrl").getValue();
+                    String recipe = (String) ds.child("recipe").getValue();//--> at this point, you tried to assign a String to an Object with type "protest" by conversion. This is illegal, so it will throw an exception instead.
+                    String rating = (String) ds.child("rating").getValue();
+
+                    mRecipeList.add(new Recipe(imageUrl, recipe, id, rating));
                 }
-                mExampleAdapter = new Adapter(FavoriteList.this, favoriteList);
+
+                mExampleAdapter = new Adapter(FavoriteList.this, mRecipeList);
                 mRecyclerView.setAdapter(mExampleAdapter);
+                mExampleAdapter.setOnItemClickListener(FavoriteList.this);
+
             }
 
             @Override
@@ -71,4 +83,17 @@ public class FavoriteList extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onItemClick(int position) {
+        Intent detailIntent = new Intent(this, RecipeDetailActivity.class);
+        Recipe clickedItem = mRecipeList.get(position);
+
+        detailIntent.putExtra(EXTRA_ID, clickedItem.getId());
+        Log.v("id", clickedItem.getId());
+
+
+        startActivity(detailIntent);
+    }
+
+
 }

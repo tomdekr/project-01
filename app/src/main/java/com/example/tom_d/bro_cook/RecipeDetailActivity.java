@@ -2,14 +2,11 @@ package com.example.tom_d.bro_cook;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,23 +19,32 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class RecipeDetailActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "id";
+
     DatabaseReference databaseBrancheUser;
+    DatabaseReference databaseBrancheUserCheck;
     DatabaseReference databaseBrancheGroup;
     DatabaseReference drRecipe;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
     private RequestQueue mRequestQueue;
+    WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,29 +57,33 @@ public class RecipeDetailActivity extends AppCompatActivity {
         databaseBrancheGroup = FirebaseDatabase.getInstance().getReference("groupInfo");
 
         mRequestQueue = Volley.newRequestQueue(this);
-        parseJSON();
+
 
         if (findViewById(R.id.imageView6).getVisibility() == View.INVISIBLE){
         findViewById(R.id.imageView5).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Adds the recipe to favorites if image 'heart' is clicked
-                findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
-                addToFavorite();
+                    addToFavorite();
+                    findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+
+
 
             }
         });}
 
-        if (findViewById(R.id.imageView6).getVisibility() == View.VISIBLE){
             findViewById(R.id.imageView6).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // Adds the recipe to favorites if image 'heart' is clicked
-                    findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
-                    removeFromFavorites();
+                    if (findViewById(R.id.imageView6).getVisibility() == View.VISIBLE) {
+                        removeFromFavorites();
+                        findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
+
+                    }
 
                 }
-            });}
+            });
 
 
         findViewById(R.id.buttonGroup).setOnClickListener(new View.OnClickListener() {
@@ -83,6 +93,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 addToGroupFavorites();
             }
         });
+
+        checkFavorites();
+        parseJSON();
+
     }
 
     private void parseJSON() {
@@ -103,11 +117,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
         Log.v("check dit:", id);
         if (id != null){
             url = url.replace("recipe-id", id);
-//            findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
         }
         if (broId != null){
             url = url.replace("recipe-id", broId);
-//            findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
         }
 
 
@@ -136,15 +148,17 @@ public class RecipeDetailActivity extends AppCompatActivity {
                             JSONObject jsonObjectSource = response.getJSONObject("source");
 
                             String recipe = response.getString("name");
-                            String prepTime = response.getString("totalTime");
+                            final String prepTime = response.getString("totalTime");
                             String ingredients = response.getString("ingredientLines");
-                            String sourceUrl = jsonObjectSource.getString("sourceRecipeUrl");
+                            final String sourceUrl = jsonObjectSource.getString("sourceRecipeUrl");
+                            int rating = response.getInt("rating");
 
                             ingredients = ingredients.replace("[", "").replace("]", "").replace("\"","");
 
                             String prepTimeText = "Preparation time: "+ prepTime;
                             String ingredientsText = "Ingredients used: " + ingredients;
                             String sourceLinkText = "Recipe link: " + sourceUrl;
+                            String ratingText = "Rating: "+ rating;
 
                             Log.v("prep", prepTimeText);
                             Log.v("name", recipe);
@@ -155,13 +169,25 @@ public class RecipeDetailActivity extends AppCompatActivity {
                             TextView prepTimeString = findViewById(R.id.textView2);
                             TextView ingredientsTextView = findViewById(R.id.textView3);
                             TextView sourcelinkTextView = findViewById(R.id.textView4);
+                            TextView ratingTextView = findViewById(R.id.textView5);
 
                             recipeName.setText(recipe);
                             prepTimeString.setText(prepTimeText);
                             ingredientsTextView.setText(ingredientsText);
                             sourcelinkTextView.setText(sourceLinkText);
+                            ratingTextView.setText(ratingText);
+
+                                findViewById(R.id.buttonWeb).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    finish();
+                                    Intent detailIntent = new Intent(RecipeDetailActivity.this, WebActivity.class);
+                                    detailIntent.putExtra("source",sourceUrl);
+                                    startActivity(detailIntent);
 
 
+                                }
+                            });
 
 
                         } catch (JSONException e) {
@@ -178,35 +204,43 @@ public class RecipeDetailActivity extends AppCompatActivity {
         mRequestQueue.add(request);
 
     }
+
+
+
     private void addToFavorite(){
-        // Gets the recipe from the list
+        // Gets the info for the recipe from the list
         Intent intent = getIntent();
-        String input = intent.getStringExtra("id");
+        String input = intent.getStringExtra(EXTRA_ID);
         String urlInput = intent.getStringExtra("imageUrl");
         String recipeInput = intent.getStringExtra("recipe");
+        String rating = intent.getStringExtra("rating");
 
-
-
-        // Creates a unique key for a recipe id
-        String id = databaseBrancheUser.push().getKey();
-//
-//        User newUser = new User(input);
-//
-//        // Saves the recipe with username and unique key to Firebase Database
-//        databaseBrancheUser.child(currentUser.getDisplayName()).child(id).setValue(input);
-
-        Recipe recipe = new Recipe(urlInput,recipeInput,input);
-        databaseBrancheUser.child(currentUser.getDisplayName()).child(id).setValue(recipe);
+        Recipe recipe = new Recipe(urlInput,recipeInput,input,rating);
+        databaseBrancheUser.child(currentUser.getDisplayName()).child(input).setValue(recipe);
 
         // Shows toast
-        Toast.makeText(this,"Favorite added to your favorites", Toast.LENGTH_LONG).show();
+        Toast.makeText(this,recipeInput +" added to your favorites", Toast.LENGTH_LONG).show();
     }
 
     private void removeFromFavorites() {
-        DatabaseReference delete = FirebaseDatabase.getInstance().getReference(currentUser.getDisplayName()).child("6-Ingredient-Orange-Chicken-1614114");
+        Intent intent = getIntent();
+//        final String input = intent.getStringExtra(EXTRA_ID);
 
-        delete.removeValue();
+        final String input = intent.getStringExtra("id");
+
+        databaseBrancheUserCheck = databaseBrancheUser.child(currentUser.getDisplayName());
+        databaseBrancheUserCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dataSnapshot.child(input).getRef().removeValue();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
+
+
 
     private void addToGroupFavorites(){
         SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
@@ -218,9 +252,11 @@ public class RecipeDetailActivity extends AppCompatActivity {
         String input = intent.getStringExtra("id");
         String urlInput = intent.getStringExtra("imageUrl");
         String recipeInput = intent.getStringExtra("recipe");
+        String rating = intent.getStringExtra("rating");
+
 
         // Creates a unique key for a recipe id
-        String id = databaseBrancheGroup.push().getKey();
+//        String id = databaseBrancheGroup.push().getKey();
 
         DatabaseReference getgroupname = FirebaseDatabase.getInstance().getReference("groupNames");
 
@@ -229,12 +265,84 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
 //            getgroupname.child(restoredGroupName).child(id).setValue(input);
 
-            Recipe recipe = new Recipe(urlInput,recipeInput,input);
-            getgroupname.child(restoredGroupName).child(id).setValue(recipe);
+            Recipe recipe = new Recipe(urlInput,recipeInput,input,rating);
+            getgroupname.child(restoredGroupName).child(input).setValue(recipe);
 
             // Shows toast
             Toast.makeText(this,"Favorite added to the group", Toast.LENGTH_LONG).show();
         }}
+
+    private void checkFavorites(){
+        Intent intent = getIntent();
+        final String input = intent.getStringExtra(EXTRA_ID);
+
+        final String input2 = intent.getStringExtra("id");
+
+        databaseBrancheUserCheck = databaseBrancheUser.child(currentUser.getDisplayName());
+        databaseBrancheUserCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    for (DataSnapshot ds2 : ds.getChildren()){
+                    System.out.println(ds2);
+                    if (ds.child("id").getValue().equals(input)) {
+                        findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
+
+                    }
+//                    Boolean yolo = (Boolean) ds2.getValue();
+//                        if (swag.equals(true)) {
+//                            findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+//                        }
+//                        else {
+//                            findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
+//
+//                        }
+                    }
+                }
+
+
+//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                    for (DataSnapshot dsFav :  ds.getChildren()) {
+//                        String values = null;
+//                        values = ds.getValue().toString();
+//
+//
+//
+//                        // Split's the list by ' , ' to make all movie titles with unique stand alone
+//                        String[] lijst = values.split("id=");
+//                        Log.v("idk key", "   " + Arrays.toString(lijst)); // Log to check spot in branch
+//
+//                        // Split's the remaining list for every unique one on ' = ' and adds all values from them to the new arraylist
+//
+//                            String[] lijst2 = values.split("id");
+//
+//                            Log.v("lol key", "   " + ); // Log to check spot in branch
+//
+//
+//
+//
+//
+//                    if (dsFav.child(String.valueOf(swag)).equals(idFav)) {
+//                            Log.v("idk key 1", "   " + input); // Log to check spot in branch
+//                            Log.v("idk key 2", "   " + idFav); // Log to check spot in branch
+//                        findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+//                    }
+//                    else {
+//                        findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
+//
+//                    }}
+//                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     // Make sure that when back button is pressed the right activity is displayed
     @Override

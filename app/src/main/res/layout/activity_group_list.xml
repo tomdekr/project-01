@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#cc5555"
-    tools:context="com.example.tom_d.bro_cook.FavoriteList">
+    tools:context="com.example.tom_d.bro_cook.GroupList">
 
 
     <!--<LinearLayout-->
@@ -92,10 +92,10 @@
                 android:backgroundTint="#cccccc"
                 android:ems="10"
                 android:inputType="text"
-                android:text="Your favorite recipes:"
+                android:text="Your bro's favorite recipes:"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
-                android:textSize="25dp"
+                android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/linearLayout" />

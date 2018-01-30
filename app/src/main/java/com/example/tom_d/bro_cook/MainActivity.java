@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.buttonGroup:
                 finish();
-                startActivity(new Intent(MainActivity.this, GroupActivity.class));
+                startActivity(new Intent(MainActivity.this, GroupList.class));
                 break;
         }
         switch (view.getId()) {

@@ -60,12 +60,9 @@ public class GroupActivity extends AppCompatActivity {
              public void onDataChange(DataSnapshot dataSnapshot) {
                  String data = null;
                  data = dataSnapshot.getValue().toString();
-                 Log.v("Eerste key", "   " + data.toString()); // Log to check spot in branch
-
 
                  // Split's the list by ' , ' to make all movie titles with unique stand alone
                  String[] lijst = data.split(",");
-                 Log.v("idk key", "   " + Arrays.toString(lijst)); // Log to check spot in branch
 
                  // Split's the remaining list for every unique one on ' = ' and adds all values from them to the new arraylist
                  for (int i = 0; i < lijst.length; i++) {

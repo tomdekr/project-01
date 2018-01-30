@@ -8,6 +8,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -20,8 +21,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +33,8 @@ import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    DatabaseReference databaseNameGroup;
+    FirebaseUser currentUser;
     EditText editTextUsername;
     EditText editTextGroupname;
     ProgressBar progressBar;
@@ -45,9 +51,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressbar);
         mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
-        //This wil load all filled in (working atm) information
-        loadUserInformation();
+
+
 
         findViewById(R.id.buttonSaveInfo).setOnClickListener(new View.OnClickListener() {
             // Executes the profile update method called saveUserInformation
@@ -58,6 +65,8 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+        //This wil load all filled in (working atm) information
+        loadUserInformation();
 
         findViewById(R.id.buttonLogout).setOnClickListener(new View.OnClickListener() {
             // Executes the Logout method
@@ -112,25 +121,46 @@ public class ProfileActivity extends AppCompatActivity {
 
     // This is the method to load the updated user information from Firebase
     private void loadUserInformation() {
-        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
-        String restoredGroupName = prefs.getString("groupName", null);
-        String groupName = editTextGroupname.getText().toString();
+//        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
+//        String restoredGroupName = prefs.getString("groupName", null);
+//        Log.v("id", restoredGroupName);
+//
+//        final String groupName = editTextGroupname.getText().toString();
         FirebaseUser user = mAuth.getCurrentUser();
 
         if (user != null) {
             if (user.getDisplayName() != null) {
                 editTextUsername.setText(user.getDisplayName());
             }
-            if (restoredGroupName != null){
-                editTextGroupname.setText(groupName);
-            }
-
+//            if (restoredGroupName != null){
+//                editTextGroupname.setText(groupName);
+//            }
         }
+//        databaseNameGroup = FirebaseDatabase.getInstance().getReference(currentUser.getDisplayName());
+//        databaseNameGroup.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                String groupValue = null;
+//                groupValue = (String) dataSnapshot.child("groupName").getValue();
+//                if (groupValue != null) {
+//                    editTextGroupname.setText(groupValue);
+//                    Log.v("hoiiii",groupName);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+
     }
 
     private void saveGroupName() {
         String displayName = editTextUsername.getText().toString();
-        String groupName = editTextGroupname.getText().toString();
+        final String groupName = editTextGroupname.getText().toString();
+
         // If input is empty; make noticeable
         if(groupName.isEmpty()){
             editTextGroupname.setError("Name required");
@@ -164,6 +194,26 @@ public class ProfileActivity extends AppCompatActivity {
         editor.putString("groupName", groupName);
         editor.apply();
         editor.commit();
+
+
+
+        databaseNameGroup = FirebaseDatabase.getInstance().getReference(currentUser.getDisplayName());
+        databaseNameGroup.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String groupValue = null;
+                groupValue = (String) dataSnapshot.child("groupName").getValue();
+                if (groupValue != null) {
+                    editTextGroupname.setText(groupValue);
+                    System.out.println();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

@@ -8,11 +8,17 @@ public class Recipe {
     private String mImageUrl;
     private String mRecipe;
     private String mId;
+    private String mRating;
 
-    public Recipe(String imageUrl, String recipe, String id){
+    public Recipe(){
+
+    }
+
+    public Recipe(String imageUrl, String recipe, String id, String rating){
         mImageUrl = imageUrl;
         mRecipe = recipe;
         mId = id;
+        mRating = rating;
     }
 
     public String getImageUrl(){
@@ -27,8 +33,22 @@ public class Recipe {
         return mId;
     }
 
+    public String getRating(){
+        return mRating;
+    }
 
+    public void setImageUrl(String mImageUrl) {
+        this.mImageUrl = mImageUrl;
+    }
 
+    public void setRecipe(String mRecipe) {
+        this.mRecipe = mRecipe;
+    }
 
+    public void setId(String mId) {
+        this.mId = mId;
+    }
+
+    public void setRating (String mRating) { this.mRating = mRating;}
 
 }
