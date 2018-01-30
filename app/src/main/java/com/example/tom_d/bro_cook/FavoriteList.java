@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,14 +41,15 @@ public class FavoriteList extends AppCompatActivity implements Adapter.OnItemCli
 
         mDatabaseFavorites = FirebaseDatabase.getInstance().getReferenceFromUrl("https://brocook-6ed95.firebaseio.com/userInfo/"+currentUserDisplay+"/");
 
-        mRecyclerView = findViewById(R.id.recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(FavoriteList.this));
 
+        mRecyclerView = findViewById(R.id.recycler_view);
 
         mRecyclerView.setHasFixedSize(true);
 
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(FavoriteList.this));
 
         mRecipeList = new ArrayList<>();
+
     }
 
     @Override
@@ -66,12 +68,15 @@ public class FavoriteList extends AppCompatActivity implements Adapter.OnItemCli
                     String id = (String) ds.child("id").getValue();
                     String imageUrl = (String) ds.child("imageUrl").getValue();
                     String recipe = (String) ds.child("recipe").getValue();//--> at this point, you tried to assign a String to an Object with type "protest" by conversion. This is illegal, so it will throw an exception instead.
-                    String rating = (String) ds.child("rating").getValue();
+                    String rating = (String) "Rating: " + ds.child("rating").getValue();
 
                     mRecipeList.add(new Recipe(imageUrl, recipe, id, rating));
+
+
                 }
 
                 mExampleAdapter = new Adapter(FavoriteList.this, mRecipeList);
+
                 mRecyclerView.setAdapter(mExampleAdapter);
                 mExampleAdapter.setOnItemClickListener(FavoriteList.this);
 

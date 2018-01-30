@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,21 +30,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 
 public class RecipeDetailActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "id";
 
     DatabaseReference databaseBrancheUser;
-    DatabaseReference databaseBrancheUserCheck;
     DatabaseReference databaseBrancheGroup;
+    DatabaseReference databaseBrancheUserCheck;
+    DatabaseReference databaseBrancheGroupCheck;
     DatabaseReference drRecipe;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
     private RequestQueue mRequestQueue;
-    WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +51,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         databaseBrancheUser = FirebaseDatabase.getInstance().getReference("userInfo");
-        databaseBrancheGroup = FirebaseDatabase.getInstance().getReference("groupInfo");
+        databaseBrancheGroup = FirebaseDatabase.getInstance().getReference("groupNames");
 
         mRequestQueue = Volley.newRequestQueue(this);
 
@@ -91,6 +88,15 @@ public class RecipeDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Adds the movie to favorites if image 'heart' is clicked
                 addToGroupFavorites();
+            }
+        });
+
+
+        findViewById(R.id.buttonGroup).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                removeFromGroup();
+                return true;
             }
         });
 
@@ -153,28 +159,32 @@ public class RecipeDetailActivity extends AppCompatActivity {
                             final String sourceUrl = jsonObjectSource.getString("sourceRecipeUrl");
                             int rating = response.getInt("rating");
 
-                            ingredients = ingredients.replace("[", "").replace("]", "").replace("\"","");
+                            ingredients = ingredients
+                                    .replace("[", "")
+                                    .replace("]", "")
+                                    .replace("\"","")
+                                    .replace(",","\n");
 
                             String prepTimeText = "Preparation time: "+ prepTime;
-                            String ingredientsText = "Ingredients used: " + ingredients;
+                            String ingredientsText = "Ingredients used: "+ "\n" + ingredients;
                             String sourceLinkText = "Recipe link: " + sourceUrl;
-                            String ratingText = "Rating: "+ rating;
+                            String ratingText = "Rating: " + rating;
 
                             Log.v("prep", prepTimeText);
                             Log.v("name", recipe);
                             Log.v("ingredients", ingredientsText);
                             Log.v("source", sourceLinkText);
 
+
                             TextView recipeName = findViewById(R.id.textView);
                             TextView prepTimeString = findViewById(R.id.textView2);
                             TextView ingredientsTextView = findViewById(R.id.textView3);
-                            TextView sourcelinkTextView = findViewById(R.id.textView4);
                             TextView ratingTextView = findViewById(R.id.textView5);
 
                             recipeName.setText(recipe);
                             prepTimeString.setText(prepTimeText);
+                            ingredientsTextView.setMovementMethod(new ScrollingMovementMethod());
                             ingredientsTextView.setText(ingredientsText);
-                            sourcelinkTextView.setText(sourceLinkText);
                             ratingTextView.setText(ratingText);
 
                                 findViewById(R.id.buttonWeb).setOnClickListener(new View.OnClickListener() {
@@ -224,8 +234,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     private void removeFromFavorites() {
         Intent intent = getIntent();
-//        final String input = intent.getStringExtra(EXTRA_ID);
-
         final String input = intent.getStringExtra("id");
 
         databaseBrancheUserCheck = databaseBrancheUser.child(currentUser.getDisplayName());
@@ -237,7 +245,28 @@ public class RecipeDetailActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
+        });}
+
+    private void removeFromGroup() {
+        Intent intent = getIntent();
+        final String input = intent.getStringExtra("id");
+
+        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
+        String restoredGroupName = prefs.getString("groupName", null);
+
+        databaseBrancheGroupCheck = databaseBrancheGroup.child(restoredGroupName);
+        databaseBrancheGroupCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dataSnapshot.child(input).getRef().removeValue();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
         });
+        Toast.makeText(this,"Deleted", Toast.LENGTH_LONG).show();
+
     }
 
 
@@ -262,9 +291,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         if (restoredGroupName != null){
             // Saves the recipe with username and unique key to Firebase Database
-
-//            getgroupname.child(restoredGroupName).child(id).setValue(input);
-
             Recipe recipe = new Recipe(urlInput,recipeInput,input,rating);
             getgroupname.child(restoredGroupName).child(input).setValue(recipe);
 
@@ -275,9 +301,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private void checkFavorites(){
         Intent intent = getIntent();
         final String input = intent.getStringExtra(EXTRA_ID);
-
-        final String input2 = intent.getStringExtra("id");
-
         databaseBrancheUserCheck = databaseBrancheUser.child(currentUser.getDisplayName());
         databaseBrancheUserCheck.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -291,50 +314,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
                     else {
                         findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
 
-                    }
-//                    Boolean yolo = (Boolean) ds2.getValue();
-//                        if (swag.equals(true)) {
-//                            findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
-//                        }
-//                        else {
-//                            findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
-//
-//                        }
+                        }
                     }
                 }
 
-
-//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                    for (DataSnapshot dsFav :  ds.getChildren()) {
-//                        String values = null;
-//                        values = ds.getValue().toString();
-//
-//
-//
-//                        // Split's the list by ' , ' to make all movie titles with unique stand alone
-//                        String[] lijst = values.split("id=");
-//                        Log.v("idk key", "   " + Arrays.toString(lijst)); // Log to check spot in branch
-//
-//                        // Split's the remaining list for every unique one on ' = ' and adds all values from them to the new arraylist
-//
-//                            String[] lijst2 = values.split("id");
-//
-//                            Log.v("lol key", "   " + ); // Log to check spot in branch
-//
-//
-//
-//
-//
-//                    if (dsFav.child(String.valueOf(swag)).equals(idFav)) {
-//                            Log.v("idk key 1", "   " + input); // Log to check spot in branch
-//                            Log.v("idk key 2", "   " + idFav); // Log to check spot in branch
-//                        findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
-//                    }
-//                    else {
-//                        findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
-//
-//                    }}
-//                }
             }
 
             @Override

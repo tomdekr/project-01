@@ -40,6 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
     ProgressBar progressBar;
     FirebaseAuth mAuth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,19 +78,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.buttonFavorites).setOnClickListener(new View.OnClickListener() {
-            // Executes new activity to FavoriteActivity
-            @Override
-            public void onClick(View view) {
-
-                switch (view.getId()) {
-                    case R.id.buttonFavorites:
-                        finish();
-                        startActivity(new Intent(ProfileActivity.this, FavoriteList.class));
-                        break;
-                }
-            }
-        });
 
 }
 
@@ -110,20 +98,42 @@ public class ProfileActivity extends AppCompatActivity {
     // This makes it able to check if the user is already logged in when opening app after killing it
     protected void onStart() {
         super.onStart();
+
         FirebaseUser user = mAuth.getCurrentUser();
 
         // If the user is not logged in, go to login page
         if (user == null){
             finish();
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
+        }
+
+
+        if (currentUser.getDisplayName() != null){
+            databaseNameGroup = FirebaseDatabase.getInstance().getReference("userInfo").child(currentUser.getDisplayName()).child("groupName");
+            databaseNameGroup.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot != null) {
+                        editTextGroupname.setText(String.valueOf(dataSnapshot.getValue()));
+                    }
+                    if (dataSnapshot.getValue() == null){
+                        editTextGroupname.setText("");
+                        editTextGroupname.setHint("Enter groupname");
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
     }
 
     // This is the method to load the updated user information from Firebase
     private void loadUserInformation() {
-//        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
-//        String restoredGroupName = prefs.getString("groupName", null);
-//        Log.v("id", restoredGroupName);
+
 //
 //        final String groupName = editTextGroupname.getText().toString();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -132,30 +142,8 @@ public class ProfileActivity extends AppCompatActivity {
             if (user.getDisplayName() != null) {
                 editTextUsername.setText(user.getDisplayName());
             }
-//            if (restoredGroupName != null){
-//                editTextGroupname.setText(groupName);
-//            }
-        }
-//        databaseNameGroup = FirebaseDatabase.getInstance().getReference(currentUser.getDisplayName());
-//        databaseNameGroup.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                String groupValue = null;
-//                groupValue = (String) dataSnapshot.child("groupName").getValue();
-//                if (groupValue != null) {
-//                    editTextGroupname.setText(groupValue);
-//                    Log.v("hoiiii",groupName);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
 
-
-    }
+    }}
 
     private void saveGroupName() {
         String displayName = editTextUsername.getText().toString();
@@ -189,31 +177,11 @@ public class ProfileActivity extends AppCompatActivity {
         secoondPost.put("groupName",groupName);
         groupDb.updateChildren(secoondPost);
 
-        // Save the groupName for RecipeInfoActivity
+        // Save the groupName for RecipeDetailActivity
         SharedPreferences.Editor editor = getSharedPreferences("settings", MODE_PRIVATE).edit();
         editor.putString("groupName", groupName);
         editor.apply();
         editor.commit();
-
-
-
-        databaseNameGroup = FirebaseDatabase.getInstance().getReference(currentUser.getDisplayName());
-        databaseNameGroup.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String groupValue = null;
-                groupValue = (String) dataSnapshot.child("groupName").getValue();
-                if (groupValue != null) {
-                    editTextGroupname.setText(groupValue);
-                    System.out.println();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
     }
 

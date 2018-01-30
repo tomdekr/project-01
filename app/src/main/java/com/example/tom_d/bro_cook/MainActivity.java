@@ -102,6 +102,14 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
+        switch (view.getId()) {
+            case R.id.buttonFavorites:
+                finish();
+                startActivity(new Intent(MainActivity.this, FavoriteList.class));
+                break;
+        }
+
+
     }
     @Override
     public void onBackPressed() {

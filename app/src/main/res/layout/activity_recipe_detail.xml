@@ -33,38 +33,6 @@
         <!--&lt;!&ndash;app:civ_shadow_color="#000000"/>&ndash;&gt;-->
 
 
-        <Button
-            android:id="@+id/buttonGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="11dp"
-            android:layout_marginEnd="15dp"
-            android:text="Group" />
-
-        <Button
-            android:id="@+id/buttonWeb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/buttonGroup"
-            android:layout_alignBottom="@+id/buttonGroup"
-            android:layout_centerHorizontal="true"
-            android:text="Open Recipe"
-            card_view:layout_editor_absoluteX="106dp"
-            card_view:layout_editor_absoluteY="467dp" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/buttonWeb"
-            android:layout_alignBottom="@+id/buttonWeb"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="19dp"
-            android:text="Rating" />
-
-
         <!--<ImageView-->
         <!--android:id="@+id/imageView"-->
         <!--android:layout_width="166dp"-->
@@ -80,15 +48,16 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="270dp" />
+        android:layout_height="270dp"
+        android:layout_marginTop="-20dp"/>
 
     <ImageView
         android:id="@+id/imageViewGradient"
         android:layout_width="match_parent"
-        android:layout_height="405dp"
+        android:layout_height="380dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         app:srcCompat="@drawable/gradient" />
 
     <ImageView
@@ -98,9 +67,9 @@
         android:layout_alignBottom="@+id/textView"
         android:layout_alignStart="@+id/buttonGroup"
         android:layout_gravity="right"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="45dp"
         android:layout_marginRight="24dp"
-        android:layout_marginTop="210dp"
+        android:layout_marginTop="200dp"
         android:src="@drawable/heartmodern_black"
         android:visibility="visible"
 
@@ -113,7 +82,7 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center"
-        android:layout_marginBottom="110dp"
+        android:layout_marginBottom="130dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:shadowColor="@android:color/black"
@@ -135,32 +104,6 @@
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_alignParentStart="true"
-        android:layout_gravity="left"
-        android:layout_marginBottom="102dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="320dp"
-        android:text="Source Link"
-        android:textColor="@android:color/black"
-        android:textSize="16sp" />
-
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="324dp"
-        android:layout_height="122dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_gravity="left"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="340dp"
-        android:text="Ingredients"
-        android:textColor="@android:color/black"
-        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/imageView6"
@@ -171,11 +114,66 @@
         android:layout_gravity="right"
         android:layout_marginBottom="34dp"
         android:layout_marginRight="24dp"
-        android:layout_marginTop="210dp"
+        android:layout_marginTop="200dp"
         android:src="@drawable/heartmodern"
         android:visibility="invisible"
 
         />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="300dp"
+        android:layout_height="153dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="left"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="325dp"
+        android:maxLines="40"
+        android:scrollbars="vertical"
+        android:text="Ingredients"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonWeb"
+        android:layout_alignBottom="@+id/buttonWeb"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="265dp"
+        android:layout_marginTop="300dp"
+        android:layout_gravity="left"
+        android:text="Rating" />
+
+    <Button
+        android:id="@+id/buttonGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonGroup"
+        android:layout_alignBottom="@+id/buttonGroup"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="right"
+        android:layout_marginTop="500dp"
+        android:layout_marginRight="75dp"
+        android:onClick="onClickRemove"
+        android:text="Group" />
+
+    <Button
+        android:id="@+id/buttonWeb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="left"
+        android:layout_marginBottom="19dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="500dp"
+        android:text="Recipe"
+        card_view:layout_editor_absoluteX="106dp"
+        card_view:layout_editor_absoluteY="467dp" />
 
 
 </android.support.v7.widget.CardView>

@@ -45,19 +45,30 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ExampleViewHolder> {
 
 
         Recipe currentRecipe = mRecipeList.get(position);
-        if (currentRecipe != null){
-        String imageUrl = currentRecipe.getImageUrl();
-        String recipeName = currentRecipe.getRecipe();
-        String rating = currentRecipe.getRating();
+        if (currentRecipe == null){
+        } else {
 
-        holder.mTextViewRecipe.setText(recipeName);
-        holder.mTextViewRating.setText(rating);
-        Picasso.with(mContext).load(imageUrl).fit().centerInside().into(holder.mImageView);
-    }}
+            String imageUrl = currentRecipe.getImageUrl();
+            String recipeName = currentRecipe.getRecipe();
+            String rating = currentRecipe.getRating();
+
+            if (imageUrl != null){
+                Picasso.with(mContext).load(imageUrl).fit().centerInside().into(holder.mImageView);
+            }
+            if (recipeName != null){
+                holder.mTextViewRecipe.setText(recipeName);
+            }
+            if (rating != null){
+                holder.mTextViewRating.setText(rating);
+            }
+
+        }
+
+    }
 
     @Override
     public int getItemCount() {
-        return mRecipeList.size();
+        return (mRecipeList.size()-1);
     }
 
     public class ExampleViewHolder extends RecyclerView.ViewHolder{

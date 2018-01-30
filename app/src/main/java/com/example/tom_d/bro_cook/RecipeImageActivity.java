@@ -61,8 +61,6 @@ public class RecipeImageActivity extends AppCompatActivity implements Adapter.On
     }
 
     private void parseJSON() {
-//        String url = "http://api.yummly.com/v1/api/recipes?_app_id=d77dc66c&_app_key=e03fc2ee7af2a8271e7200e35155104e&q=potato";
-
         SharedPreferences settings = RecipeImageActivity.this.getSharedPreferences("input", MODE_PRIVATE);
         final String input = settings.getString("input", "");
         Log.v("RecipeImage Info key", "   " + input); // Log to check spot in branch
@@ -91,13 +89,9 @@ public class RecipeImageActivity extends AppCompatActivity implements Adapter.On
                                 String imageUrl = img.getString("90");
                                 Log.v("images", imageUrl);
 
-//                        if (imageUrl != null){
-//                            imageUrl = String.valueOf(imageUrl.split("http").toString());
-//                        }
                                 String recipeName = matches.getString("recipeName");
                                 String recipeId = matches.getString("id");
-                                String rating = matches.getString("rating");
-                                boolean favorite = true;
+                                String rating = "Rating: " + matches.getString("rating");
 
 
 
