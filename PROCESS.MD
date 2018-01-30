@@ -68,6 +68,11 @@
 #### 27-01-2018:
 - FavoriteList activity bug gefixed, kon de opgehaalde recepten uit favorieten niet ophalen en omzetten in recyclerview.
 
+#### 29-01-2018:
+- checkFavorites gemaakt , keuze gemaakt tussen 'id' opzoeken of in firebase een child meegeven 'favorite' met boolean = true
+ toch gekozen voor het opzoeken naar child id of die gelijk is aan de meegegeven input van de onclicklistener vanaf favoritelist activity.
+ - removeFavorites gemaakt
+ - Aanpassingen aan RecipeDetail ; webview via 'open recipe' button en design
 
 
 
