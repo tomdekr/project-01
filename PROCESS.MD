@@ -74,6 +74,12 @@
  - removeFavorites gemaakt
  - Aanpassingen aan RecipeDetail ; webview via 'open recipe' button en design
 
+#### 30-01-2018:
+- GroupList bug gefixed (liet een null cardview zien)
+- FavoriteList bug gefixed (liet een null cardview zien)
+- Aanpassingen gemaakt aan design op MainActivity
+- Aanpassingen gemaakt aan design op RecipeDetailActivity
+- Code Review uitgevoerd
 
 
 
