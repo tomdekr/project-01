@@ -57,30 +57,30 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
 
         if (findViewById(R.id.imageView6).getVisibility() == View.INVISIBLE){
-        findViewById(R.id.imageView5).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Adds the recipe to favorites if image 'heart' is clicked
+            findViewById(R.id.imageView5).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Adds the recipe to favorites if image 'heart' is clicked
                     addToFavorite();
                     findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
 
 
 
-            }
-        });}
+                }
+            });}
 
-            findViewById(R.id.imageView6).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // Adds the recipe to favorites if image 'heart' is clicked
-                    if (findViewById(R.id.imageView6).getVisibility() == View.VISIBLE) {
-                        removeFromFavorites();
-                        findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
-
-                    }
+        findViewById(R.id.imageView6).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Adds the recipe to favorites if image 'heart' is clicked
+                if (findViewById(R.id.imageView6).getVisibility() == View.VISIBLE) {
+                    removeFromFavorites();
+                    findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
 
                 }
-            });
+
+            }
+        });
 
 
         findViewById(R.id.buttonGroup).setOnClickListener(new View.OnClickListener() {
@@ -145,7 +145,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                                 Picasso.with(RecipeDetailActivity.this).load(imageUrl).fit().centerInside().into(imageView);
                             }
 
-                            } catch (JSONException e1) {
+                        } catch (JSONException e1) {
                             e1.printStackTrace();
                         }
 
@@ -187,7 +187,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                             ingredientsTextView.setText(ingredientsText);
                             ratingTextView.setText(ratingText);
 
-                                findViewById(R.id.buttonWeb).setOnClickListener(new View.OnClickListener() {
+                            findViewById(R.id.buttonWeb).setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     finish();
@@ -307,12 +307,12 @@ public class RecipeDetailActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     for (DataSnapshot ds2 : ds.getChildren()){
-                    System.out.println(ds2);
-                    if (ds.child("id").getValue().equals(input)) {
-                        findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
-                    }
-                    else {
-                        findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
+                        System.out.println(ds2);
+                        if (ds.child("id").getValue().equals(input)) {
+                            findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
 
                         }
                     }
@@ -335,4 +335,3 @@ public class RecipeDetailActivity extends AppCompatActivity {
         startActivity(new Intent(RecipeDetailActivity.this, RecipeImageActivity.class));
     }
 }
-

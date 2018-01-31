@@ -21,6 +21,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.tom_d.bro_cook.RecipeImageActivity.EXTRA_CREATOR;
+import static com.example.tom_d.bro_cook.RecipeImageActivity.EXTRA_INT;
+import static com.example.tom_d.bro_cook.RecipeImageActivity.EXTRA_URL;
+
 public class FavoriteList extends AppCompatActivity implements Adapter.OnItemClickListener {
     public static final String EXTRA_ID = "id";
     private RecyclerView mRecyclerView;
@@ -62,13 +66,10 @@ public class FavoriteList extends AppCompatActivity implements Adapter.OnItemCli
                 mRecipeList.clear();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) //--> At this point, ds is an iterator of dataSnapshot; it will iterate the dataSnapshot's children. In this case, the first child's type is String, thus the first iteration of ds will have a type of String.
                 {
-                    System.out.println(dataSnapshot.getValue());
-                    System.out.println(ds.getValue());
-
                     String id = (String) ds.child("id").getValue();
                     String imageUrl = (String) ds.child("imageUrl").getValue();
                     String recipe = (String) ds.child("recipe").getValue();//--> at this point, you tried to assign a String to an Object with type "protest" by conversion. This is illegal, so it will throw an exception instead.
-                    String rating = (String) "Rating: " + ds.child("rating").getValue();
+                    String rating = (String) ds.child("rating").getValue();
 
                     mRecipeList.add(new Recipe(imageUrl, recipe, id, rating));
 
@@ -94,6 +95,11 @@ public class FavoriteList extends AppCompatActivity implements Adapter.OnItemCli
         Recipe clickedItem = mRecipeList.get(position);
 
         detailIntent.putExtra(EXTRA_ID, clickedItem.getId());
+        detailIntent.putExtra(EXTRA_URL, clickedItem.getImageUrl());
+        detailIntent.putExtra(EXTRA_CREATOR, clickedItem.getRecipe());
+        detailIntent.putExtra(EXTRA_INT, clickedItem.getRating());
+
+
         Log.v("id", clickedItem.getId());
 
 

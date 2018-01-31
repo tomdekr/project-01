@@ -98,16 +98,12 @@ public class ProfileActivity extends AppCompatActivity {
     // This makes it able to check if the user is already logged in when opening app after killing it
     protected void onStart() {
         super.onStart();
-
         FirebaseUser user = mAuth.getCurrentUser();
-
         // If the user is not logged in, go to login page
         if (user == null){
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
-
-
         if (currentUser.getDisplayName() != null){
             databaseNameGroup = FirebaseDatabase.getInstance().getReference("userInfo").child(currentUser.getDisplayName()).child("groupName");
             databaseNameGroup.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -120,9 +116,7 @@ public class ProfileActivity extends AppCompatActivity {
                         editTextGroupname.setText("");
                         editTextGroupname.setHint("Enter groupname");
                     }
-
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
@@ -133,11 +127,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     // This is the method to load the updated user information from Firebase
     private void loadUserInformation() {
-
-//
-//        final String groupName = editTextGroupname.getText().toString();
         FirebaseUser user = mAuth.getCurrentUser();
-
         if (user != null) {
             if (user.getDisplayName() != null) {
                 editTextUsername.setText(user.getDisplayName());
@@ -158,21 +148,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("userInfo").child(displayName);
         DatabaseReference groupDb = FirebaseDatabase.getInstance().getReference().child("groupNames").child(groupName);
+
 //        // Create for user the info branche called 'Groupname' under the user
         Map firstPost = new HashMap();
         firstPost.put("groupName",groupName);
-//
-//        // Create a new branche a side from userInfo
-//        Map secondPost = new HashMap();
-//        secondPost.put("groupName",groupName);
-//
         currentUserDb.updateChildren(firstPost);
-//        groupDb.setValue(secondPost);
 
         // Creates a unique key for a group id
-        String id = groupDb.push().getKey();
-
-//        Group newGroup = new Group(groupName);
         Map secoondPost = new HashMap();
         secoondPost.put("groupName",groupName);
         groupDb.updateChildren(secoondPost);
@@ -221,5 +203,12 @@ public class ProfileActivity extends AppCompatActivity {
                         }
                     });
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        startActivity(new Intent(ProfileActivity.this, MainActivity.class));
     }
 }

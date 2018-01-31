@@ -18,6 +18,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import static com.example.tom_d.bro_cook.RecipeImageActivity.EXTRA_CREATOR;
+import static com.example.tom_d.bro_cook.RecipeImageActivity.EXTRA_INT;
+import static com.example.tom_d.bro_cook.RecipeImageActivity.EXTRA_URL;
+
 public class GroupList extends AppCompatActivity implements Adapter.OnItemClickListener{
     public static final String EXTRA_ID = "id";
     private RecyclerView mRecyclerView;
@@ -26,8 +30,6 @@ public class GroupList extends AppCompatActivity implements Adapter.OnItemClickL
     DatabaseReference mDatabaseFavorites;
     DatabaseReference mDatabaseGroup;
     FirebaseAuth mAuth;
-    FirebaseUser user;
-    ArrayList<Recipe> favoriteList;
     ArrayList<String>  allTitels;
 
 
@@ -87,9 +89,6 @@ public class GroupList extends AppCompatActivity implements Adapter.OnItemClickL
                         mRecipeList.clear();
                         for (DataSnapshot ds : dataSnapshot.getChildren()) //--> At this point, ds is an iterator of dataSnapshot; it will iterate the dataSnapshot's children. In this case, the first child's type is String, thus the first iteration of ds will have a type of String.
                         {
-                            System.out.println(dataSnapshot.getValue());
-                            System.out.println(ds.getValue());
-
                             String id = (String) ds.child("id").getValue();
                             String imageUrl = (String) ds.child("imageUrl").getValue();
                             String recipe = (String) ds.child("recipe").getValue();//--> at this point, you tried to assign a String to an Object with type "protest" by conversion. This is illegal, so it will throw an exception instead.
@@ -98,7 +97,6 @@ public class GroupList extends AppCompatActivity implements Adapter.OnItemClickL
                             mRecipeList.add(new Recipe(imageUrl, recipe, id,rating));
 
                         }
-                        Log.v("yololol", String.valueOf(mRecipeList));
 
                         mExampleAdapter = new Adapter(GroupList.this, mRecipeList);
                         mRecyclerView.setAdapter(mExampleAdapter);
@@ -127,6 +125,10 @@ public class GroupList extends AppCompatActivity implements Adapter.OnItemClickL
         Recipe clickedItem = mRecipeList.get(position);
 
         detailIntent.putExtra(EXTRA_ID, clickedItem.getId());
+        detailIntent.putExtra(EXTRA_URL, clickedItem.getImageUrl());
+        detailIntent.putExtra(EXTRA_CREATOR, clickedItem.getRecipe());
+        detailIntent.putExtra(EXTRA_INT, clickedItem.getRating());
+
         Log.v("id", clickedItem.getId());
 
 
@@ -145,58 +147,3 @@ public class GroupList extends AppCompatActivity implements Adapter.OnItemClickL
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//        mDatabaseFavorites.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                mRecipeList.clear();
-//                for (DataSnapshot ds : dataSnapshot.getChildren()) //--> At this point, ds is an iterator of dataSnapshot; it will iterate the dataSnapshot's children. In this case, the first child's type is String, thus the first iteration of ds will have a type of String.
-//                {
-//                    System.out.println(dataSnapshot.getValue());
-//                    System.out.println(ds.getValue());
-//
-//                    String id = (String) ds.child("id").getValue();
-//                    String imageUrl = (String) ds.child("imageUrl").getValue();
-//                    String recipe = (String) ds.child("recipe").getValue();//--> at this point, you tried to assign a String to an Object with type "protest" by conversion. This is illegal, so it will throw an exception instead.
-//
-//
-//                    mRecipeList.add(new Recipe(imageUrl, recipe, id));
-//
-//
-////                    mRecipeList.add(id);
-////                    mRecipeList.add(imageUrl);
-////                    mRecipeList.add(recipe);
-//                }
-//                Log.v("yololol", String.valueOf(mRecipeList));
-//
-//                mExampleAdapter = new Adapter(GroupList.this, mRecipeList);
-//                mRecyclerView.setAdapter(mExampleAdapter);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
-//}
