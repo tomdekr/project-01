@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -57,13 +56,8 @@ public class GroupList extends AppCompatActivity implements Adapter.OnItemClickL
     @Override
     protected void onStart() {
         super.onStart();
-        parseList();
-
-    }
-
-    public void parseList(){
-        // Code for a listener that gets the value's from Firebase Database Reference
-        mDatabaseFavorites.addListenerForSingleValueEvent(new ValueEventListener() {
+// Code for a listener that gets the value's from Firebase Database Reference
+        mDatabaseFavorites.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String data = null;

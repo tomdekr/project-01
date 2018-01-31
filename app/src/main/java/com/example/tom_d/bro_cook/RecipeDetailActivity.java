@@ -30,7 +30,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class RecipeDetailActivity extends AppCompatActivity {
@@ -58,6 +59,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         // Creates volley request with api
         mRequestQueue = Volley.newRequestQueue(this);
+        checkFavorites();
+
 
         if (findViewById(R.id.imageView6).getVisibility() == View.INVISIBLE){
             findViewById(R.id.imageView5).setOnClickListener(new View.OnClickListener() {
@@ -101,7 +104,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
             }
         });
 
-        checkFavorites();
         parseJSON();
 
     }
@@ -337,24 +339,20 @@ public class RecipeDetailActivity extends AppCompatActivity {
         mDatabaseBrancheUserCheck = mDatabaseBrancheUser.child(currentUser.getDisplayName());
 
         // Code for a listener that gets the value's from Firebase Database Reference
-        mDatabaseBrancheUserCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabaseBrancheUserCheck.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    for (DataSnapshot ds2 : ds.getChildren()){
-                        System.out.println(ds2);
-                        // Checks if the child 'id' is equal to the given id data called 'input'
-                        if (ds.child("id").getValue().equals(input)) {
-                            // Sets the 'heart' visble if its equal
-                            findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
-                        }
-                        else {
-                            // Sets the 'heart' invisible if its not equal
-                            findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
-                        }
+                String values = null;
+                values = dataSnapshot.getValue().toString();
+                if (values.contains(input)) {
+                        // Sets the 'heart' visble if its equal
+                        findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        // Sets the 'heart' invisible if its not equal
+                        findViewById(R.id.imageView6).setVisibility(View.INVISIBLE);
                     }
                 }
-            }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
