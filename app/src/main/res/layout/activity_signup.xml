@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.tom_d.bro_cook.SignupActivity"
-    android:background="#c55c5c">
+    android:background="#cc5555">
 
 
     <LinearLayout

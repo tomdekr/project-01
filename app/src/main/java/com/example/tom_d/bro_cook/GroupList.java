@@ -52,8 +52,13 @@ public class GroupList extends AppCompatActivity implements Adapter.OnItemClickL
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(GroupList.this));
         mRecyclerView.setHasFixedSize(true);
-        parseList();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        parseList();
 
     }
 
@@ -122,35 +127,7 @@ public class GroupList extends AppCompatActivity implements Adapter.OnItemClickL
             }
         });}
 
-    // Method that produces the delete function from grouplist
-    private void removeFromGroup() {
-        // Creates a new Intent
-        Intent intent = getIntent();
-        final String input = intent.getStringExtra("id");
 
-        // Receives sharedpreference from other activity
-        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
-        String restoredGroupName = prefs.getString("groupName", null);
-
-        // Creates the right Database Reference
-        databaseBrancheGroupCheck = mDatabaseGroup.child(restoredGroupName);
-
-        // Code for a listener that gets the value's from Firebase Database Reference
-        databaseBrancheGroupCheck.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Deletes the value with same child as 'input'
-                dataSnapshot.child(input).getRef().removeValue();
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-
-        });
-        // Makes a toast appear
-        Toast.makeText(this,"Deleted", Toast.LENGTH_LONG).show();
-
-    }
 
     // Method that produces the function when an Item in the RecyclerView is clicked
     @Override
@@ -161,6 +138,7 @@ public class GroupList extends AppCompatActivity implements Adapter.OnItemClickL
         // Gets the position of the item clicked, to know which values to store in the intent from the right item
         Recipe clickedItem = mRecipeList.get(position);
         detailIntent.putExtra(EXTRA_ID, clickedItem.getId());
+        detailIntent.putExtra("id",clickedItem.getId());
         detailIntent.putExtra(EXTRA_URL, clickedItem.getImageUrl());
         detailIntent.putExtra(EXTRA_CREATOR, clickedItem.getRecipe());
         detailIntent.putExtra(EXTRA_INT, clickedItem.getRating());
@@ -177,6 +155,7 @@ public class GroupList extends AppCompatActivity implements Adapter.OnItemClickL
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
         startActivity(new Intent(GroupList.this, MainActivity.class));
     }
 

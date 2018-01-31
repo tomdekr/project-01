@@ -7,54 +7,6 @@
     android:background="#cc5555"
     tools:context="com.example.tom_d.bro_cook.RecipeImageActivity">
 
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="243dp"-->
-        <!--android:orientation="vertical">-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/textView"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="64dp"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginTop="30dp"-->
-            <!--android:visibility="visible" />-->
-
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-        <!--android:id="@+id/linearLayout4"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="418dp"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:layout_marginTop="120dp"-->
-        <!--android:orientation="vertical"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.0"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent">-->
-
-        <!--<ListView-->
-        <!--android:id="@+id/list"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_marginBottom="25dp"-->
-
-
-        <!--/>-->
-
-        <!--<ListView-->
-            <!--android:id="@+id/listId"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_marginBottom="25dp"-->
-            <!--android:visibility="gone"-->
-
-
-            <!--/>-->
-    <!--</LinearLayout>-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

@@ -1,6 +1,5 @@
 package com.example.tom_d.bro_cook;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -33,14 +32,18 @@ import org.json.JSONObject;
 
 
 
+
 public class RecipeDetailActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "id";
+    private RequestQueue mRequestQueue;
     DatabaseReference databaseBrancheUser;
     DatabaseReference databaseBrancheGroup;
     DatabaseReference databaseBrancheUserCheck;
+    DatabaseReference databaseBrancheGroupCheck;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
-    private RequestQueue mRequestQueue;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,17 +93,23 @@ public class RecipeDetailActivity extends AppCompatActivity {
         });
 
 
-//        findViewById(R.id.buttonGroup).setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                removeFromGroup();
-//                return true;
-//            }
-//        });
+        findViewById(R.id.buttonGroup).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                removeFromGroup();
+                return true;
+            }
+        });
 
         checkFavorites();
         parseJSON();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkFavorites();
     }
 
     // Method for making the visualisation with the info from the api about any clicked recipe
@@ -286,6 +295,38 @@ public class RecipeDetailActivity extends AppCompatActivity {
             Toast.makeText(this,"Favorite added to the group", Toast.LENGTH_LONG).show();
         }}
 
+    // Method that produces the delete function from grouplist
+    private void removeFromGroup() {
+        // Creates a new Intent
+        Intent intent = getIntent();
+        final String input = intent.getStringExtra("id");
+
+        // Receives sharedpreference from other activity
+        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
+        String restoredGroupName = prefs.getString("groupName", null);
+
+        // Creates the right Database Reference
+        databaseBrancheGroupCheck = databaseBrancheGroup.child(restoredGroupName);
+        databaseBrancheUserCheck = databaseBrancheUser.child(restoredGroupName);
+
+
+        // Code for a listener that gets the value's from Firebase Database Reference
+        databaseBrancheGroupCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Deletes the value with same child as 'input'
+                dataSnapshot.child(input).getRef().removeValue();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+        // Makes a toast appear
+        Toast.makeText(this,"Deleted", Toast.LENGTH_LONG).show();
+
+    }
+
     // Method to check if a recipe is a favorite from the user
     private void checkFavorites(){
         // Gets the id data for the recipe from the list
@@ -321,6 +362,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
             }
         });
     }
+
 
     // Make sure that when back button is pressed the right activity is displayed
     @Override

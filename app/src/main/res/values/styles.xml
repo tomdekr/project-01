@@ -6,6 +6,10 @@
         <item name="colorPrimary">#FFC55C5C</item>
         <item name="colorPrimaryDark">#d37373</item>
         <item name="colorAccent">#ffffff</item>
-    </style>
 
+    </style>
+    
+    <style name="ProgressTheme">
+        <item name="android:colorAccent">@color/colorProgressBar</item>
+    </style>
 </resources>

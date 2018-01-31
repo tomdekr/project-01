@@ -128,6 +128,7 @@ public class FavoriteList extends AppCompatActivity implements Adapter.OnItemCli
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
         startActivity(new Intent(FavoriteList.this, MainActivity.class));
     }
 }
