@@ -28,13 +28,11 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_signup);
 
-                //Necessary stuff for functionality
+                //Necessary code for functionality
                 editTextEmail = findViewById(R.id.editTextEmail);
                 editTextPassword = findViewById(R.id.editTextPassword);
                 progressBar = findViewById(R.id.progressbar);
-
                 mAuth = FirebaseAuth.getInstance();
-
                 findViewById(R.id.buttonSignup).setOnClickListener(this);
 
             }

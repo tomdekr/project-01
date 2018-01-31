@@ -46,20 +46,22 @@ public class RecipeImageActivity extends AppCompatActivity implements Adapter.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_image);
 
-
-        mRecyclerView = findViewById(R.id.recycler_view);
-
-        mRecyclerView.setHasFixedSize(true);
-
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(RecipeImageActivity.this));
-
+        // Necessary code for functionality
         mRecipeList = new ArrayList<>();
 
+        // Code for making the RecyclerView with certain layout
+        mRecyclerView = findViewById(R.id.recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(RecipeImageActivity.this));
+
+        // Creates the volley request
         mRequestQueue = Volley.newRequestQueue(this);
+
         parseJSON();
 
     }
 
+    // Method for making the visualisation with the info from the api about any clicked recipe
     private void parseJSON() {
         SharedPreferences settings = RecipeImageActivity.this.getSharedPreferences("input", MODE_PRIVATE);
         final String input = settings.getString("input", "");
@@ -71,17 +73,14 @@ public class RecipeImageActivity extends AppCompatActivity implements Adapter.On
         // Replaces any space in url (input) for underscore to prevent error
         url = url.replace(" ", ", ");
 
-
-
-
+        // Request a JsonObject response from the provided URL.
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            // Gets the right Json Array to get data from
                             JSONArray jsonArray = response.getJSONArray("matches");
-
-
                             for (int i = 0; i < jsonArray.length(); i++){
                                 JSONObject matches = jsonArray.getJSONObject(i);
                                 JSONObject img = matches.getJSONObject("imageUrlsBySize");
@@ -89,15 +88,22 @@ public class RecipeImageActivity extends AppCompatActivity implements Adapter.On
                                 String imageUrl = img.getString("90");
                                 Log.v("images", imageUrl);
 
+                                // Gets the right value and adds it to the right variable
                                 String recipeName = matches.getString("recipeName");
                                 String recipeId = matches.getString("id");
                                 String rating = "Rating: " + matches.getString("rating");
 
 
-
+                                // Adds the values for mRecipeList as class type Recipe
                                 mRecipeList.add(new Recipe(imageUrl,recipeName,recipeId,rating));
+
+                                // Makes the mRecipeList from api values visible with the adapter
                                 mExampleAdapter = new Adapter(RecipeImageActivity.this, mRecipeList);
+
+                                //Sets the adapter to make the final visualisation for the RecyclerView
                                 mRecyclerView.setAdapter(mExampleAdapter);
+
+                                // Sets a on Item Listener for the method OnItemClick
                                 mExampleAdapter.setOnItemClickListener(RecipeImageActivity.this);
 
                             }
@@ -118,21 +124,24 @@ public class RecipeImageActivity extends AppCompatActivity implements Adapter.On
 
 
 
+    // Method that produces the function when an Item in the RecyclerView is clicked
     @Override
     public void onItemClick(int position) {
+        // Creates a new Intent
         Intent detailIntent = new Intent(this, RecipeDetailActivity.class);
-        Recipe clickedItem = mRecipeList.get(position);
 
+        // Gets the position of the item clicked, to know which values to store in the intent from the right item
+        Recipe clickedItem = mRecipeList.get(position);
         detailIntent.putExtra(EXTRA_ID, clickedItem.getId());
         detailIntent.putExtra(EXTRA_CREATOR,clickedItem.getRecipe());
         detailIntent.putExtra(EXTRA_URL,clickedItem.getImageUrl());
         detailIntent.putExtra(EXTRA_INT, clickedItem.getRating());
 
-        Log.v("id", clickedItem.getId());
-
-
+        // Starts the new Activity
         startActivity(detailIntent);
     }
+
+
 
     // Make sure that when back button is pressed the right activity is displayed
     @Override

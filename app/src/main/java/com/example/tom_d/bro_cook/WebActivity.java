@@ -12,9 +12,12 @@ public class WebActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
+
+        // Creates intent to receive necessary data
         Intent intent = getIntent();
         String url = intent.getStringExtra("source");
 
+        // Creates the WebView with the right url
         mWebView = findViewById(R.id.webView);
         mWebView.setVisibility(View.VISIBLE);
         mWebView.loadUrl(url);

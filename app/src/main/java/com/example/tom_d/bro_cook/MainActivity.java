@@ -34,15 +34,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        // Instantiate the RequestQueue.
 
         // Does the 'Search' function on api when clicked on this button
         findViewById(R.id.buttonGET).setOnClickListener(new View.OnClickListener() {
@@ -87,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+    // Method for going to the right Activty when a certain button is clicked
     public void goToActivity(View view) {
         switch (view.getId()) {
             case R.id.buttonGroup:
@@ -111,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    // Make sure that when back button is pressed the right activity is displayed
     @Override
     public void onBackPressed() {
         super.onBackPressed();

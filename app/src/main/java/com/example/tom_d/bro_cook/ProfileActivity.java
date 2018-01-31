@@ -40,7 +40,6 @@ public class ProfileActivity extends AppCompatActivity {
     ProgressBar progressBar;
     FirebaseAuth mAuth;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,24 +48,21 @@ public class ProfileActivity extends AppCompatActivity {
         // Necessary stuff for funcionality
         editTextUsername = findViewById(R.id.editTextUsername);
         editTextGroupname = findViewById(R.id.editTextGroupname);
-
         progressBar = findViewById(R.id.progressbar);
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-
-
-
+        // Button that executes the methods when clicked
         findViewById(R.id.buttonSaveInfo).setOnClickListener(new View.OnClickListener() {
             // Executes the profile update method called saveUserInformation
             @Override
             public void onClick(View view) {
                 saveUserInformation();
                 saveGroupName();
-
             }
         });
-        //This wil load all filled in (working atm) information
+
+        //This wil load filled in information
         loadUserInformation();
 
         findViewById(R.id.buttonLogout).setOnClickListener(new View.OnClickListener() {
@@ -74,15 +70,9 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Logout();
-
             }
         });
-
-
 }
-
-
-
 
     // The method that makes it able to log out as an user
     private void Logout() {
@@ -104,15 +94,18 @@ public class ProfileActivity extends AppCompatActivity {
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
+        // Checks if the user did fill in their display name
         if (currentUser.getDisplayName() != null){
             databaseNameGroup = FirebaseDatabase.getInstance().getReference("userInfo").child(currentUser.getDisplayName()).child("groupName");
             databaseNameGroup.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot != null) {
+                        // Sets the right group name as the text
                         editTextGroupname.setText(String.valueOf(dataSnapshot.getValue()));
                     }
                     if (dataSnapshot.getValue() == null){
+                        // Sets a hint to enter a valid group name
                         editTextGroupname.setText("");
                         editTextGroupname.setHint("Enter groupname");
                     }
@@ -134,7 +127,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
     }}
-
+    // Method for saving the groupname by user input
     private void saveGroupName() {
         String displayName = editTextUsername.getText().toString();
         final String groupName = editTextGroupname.getText().toString();
@@ -146,6 +139,7 @@ public class ProfileActivity extends AppCompatActivity {
             return;
         }
 
+        // Creates the right Database Reference
         DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("userInfo").child(displayName);
         DatabaseReference groupDb = FirebaseDatabase.getInstance().getReference().child("groupNames").child(groupName);
 
@@ -205,6 +199,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    // Make sure that when back button is pressed the right activity is displayed
     @Override
     public void onBackPressed() {
         super.onBackPressed();
