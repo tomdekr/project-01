@@ -36,10 +36,10 @@ import org.json.JSONObject;
 public class RecipeDetailActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "id";
     private RequestQueue mRequestQueue;
-    DatabaseReference databaseBrancheUser;
-    DatabaseReference databaseBrancheGroup;
-    DatabaseReference databaseBrancheUserCheck;
-    DatabaseReference databaseBrancheGroupCheck;
+    DatabaseReference mDatabaseBrancheUser;
+    DatabaseReference mDatabaseBrancheGroup;
+    DatabaseReference mDatabaseBrancheUserCheck;
+    DatabaseReference mDatabaseBrancheGroupCheck;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
 
@@ -53,8 +53,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         // Necessary code for functionality
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        databaseBrancheUser = FirebaseDatabase.getInstance().getReference("userInfo");
-        databaseBrancheGroup = FirebaseDatabase.getInstance().getReference("groupNames");
+        mDatabaseBrancheUser = FirebaseDatabase.getInstance().getReference("userInfo");
+        mDatabaseBrancheGroup = FirebaseDatabase.getInstance().getReference("groupNames");
 
         // Creates volley request with api
         mRequestQueue = Volley.newRequestQueue(this);
@@ -241,7 +241,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         // Adds the recipe data as class type to Firebase Database
         Recipe recipe = new Recipe(urlInput,recipeInput,input,rating);
-        databaseBrancheUser.child(currentUser.getDisplayName()).child(input).setValue(recipe);
+        mDatabaseBrancheUser.child(currentUser.getDisplayName()).child(input).setValue(recipe);
 
         // Shows toast
         Toast.makeText(this,recipeInput +" added to your favorites", Toast.LENGTH_LONG).show();
@@ -253,10 +253,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
         final String input = intent.getStringExtra("id");
 
         // Creates the right Database Reference
-        databaseBrancheUserCheck = databaseBrancheUser.child(currentUser.getDisplayName());
+        mDatabaseBrancheUserCheck = mDatabaseBrancheUser.child(currentUser.getDisplayName());
 
         // Code for a listener that gets the value's from Firebase Database Reference
-        databaseBrancheUserCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabaseBrancheUserCheck.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Deletes the value with same child as 'input'
@@ -306,12 +306,12 @@ public class RecipeDetailActivity extends AppCompatActivity {
         String restoredGroupName = prefs.getString("groupName", null);
 
         // Creates the right Database Reference
-        databaseBrancheGroupCheck = databaseBrancheGroup.child(restoredGroupName);
-        databaseBrancheUserCheck = databaseBrancheUser.child(restoredGroupName);
+        mDatabaseBrancheGroupCheck = mDatabaseBrancheGroup.child(restoredGroupName);
+        mDatabaseBrancheUserCheck = mDatabaseBrancheUser.child(restoredGroupName);
 
 
         // Code for a listener that gets the value's from Firebase Database Reference
-        databaseBrancheGroupCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabaseBrancheGroupCheck.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Deletes the value with same child as 'input'
@@ -334,10 +334,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
         final String input = intent.getStringExtra(EXTRA_ID);
 
         // Creates the right Database Reference
-        databaseBrancheUserCheck = databaseBrancheUser.child(currentUser.getDisplayName());
+        mDatabaseBrancheUserCheck = mDatabaseBrancheUser.child(currentUser.getDisplayName());
 
         // Code for a listener that gets the value's from Firebase Database Reference
-        databaseBrancheUserCheck.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabaseBrancheUserCheck.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {

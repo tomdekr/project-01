@@ -35,7 +35,6 @@ public class FavoriteList extends AppCompatActivity implements Adapter.OnItemCli
     private ArrayList<Recipe> mRecipeList;
     DatabaseReference mDatabaseFavorites;
     DatabaseReference mDatabaseGroup;
-    DatabaseReference mdatabaseBrancheGroupCheck;
 
     FirebaseAuth mAuth;
 

@@ -30,9 +30,8 @@ public class GroupList extends AppCompatActivity implements Adapter.OnItemClickL
     private ArrayList<Recipe> mRecipeList;
     DatabaseReference mDatabaseFavorites;
     DatabaseReference mDatabaseGroup;
-    DatabaseReference databaseBrancheGroupCheck;
     FirebaseAuth mAuth;
-    ArrayList<String>  allTitels;
+    ArrayList<String>  mAllTitels;
 
 
     @Override
@@ -46,7 +45,7 @@ public class GroupList extends AppCompatActivity implements Adapter.OnItemClickL
         final String currentUserDisplay = user.getDisplayName();
         mDatabaseFavorites = FirebaseDatabase.getInstance().getReferenceFromUrl("https://brocook-6ed95.firebaseio.com/userInfo/" + currentUserDisplay + ("/groupName/"));
         mRecipeList = new ArrayList<>();
-        allTitels = new ArrayList<>();
+        mAllTitels = new ArrayList<>();
 
         // Code for making the RecyclerView with certain layout
         mRecyclerView = findViewById(R.id.recycler_view);
@@ -75,11 +74,11 @@ public class GroupList extends AppCompatActivity implements Adapter.OnItemClickL
 
                 // Adds all values from them to the new Arraylist
                 for (int i = 0; i < lijst.length; i++) {
-                    allTitels.add(lijst[i]);
+                    mAllTitels.add(lijst[i]);
                 }
 
                 // Cleans the obtained value and replaces targets to create the right groupName for the right User
-                String infogroup = allTitels.toString().replace("[", "").replace("]", "");
+                String infogroup = mAllTitels.toString().replace("[", "").replace("]", "");
                 Log.v("infoResult", "   " + infogroup); // Log to check result
 
                 // Creates the right Database Reference

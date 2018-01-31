@@ -20,7 +20,8 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
         public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
             ProgressBar progressBar;
-            EditText editTextEmail, editTextPassword;
+            EditText editTextEmail;
+            EditText editTextPassword;
             private FirebaseAuth mAuth;
 
             @Override

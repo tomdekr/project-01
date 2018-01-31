@@ -33,7 +33,7 @@ import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    DatabaseReference databaseNameGroup;
+    DatabaseReference mDatabaseNameGroup;
     FirebaseUser currentUser;
     EditText editTextUsername;
     EditText editTextGroupname;
@@ -96,8 +96,8 @@ public class ProfileActivity extends AppCompatActivity {
         }
         // Checks if the user did fill in their display name
         if (currentUser.getDisplayName() != null){
-            databaseNameGroup = FirebaseDatabase.getInstance().getReference("userInfo").child(currentUser.getDisplayName()).child("groupName");
-            databaseNameGroup.addListenerForSingleValueEvent(new ValueEventListener() {
+            mDatabaseNameGroup = FirebaseDatabase.getInstance().getReference("userInfo").child(currentUser.getDisplayName()).child("groupName");
+            mDatabaseNameGroup.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot != null) {
