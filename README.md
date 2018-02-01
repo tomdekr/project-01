@@ -15,41 +15,8 @@ Welke student heeft nou niet het probleem dat als je in de koelkast kijkt dat je
 ### Oplossing
 Met BroCook wordt het probleeem opgelost door te zoeken naar een recept gebaseerd op de restjes die nog in de koelkast liggen die door de gebruiker wordt ingevuld en door de mogelijkheid om te kijken welke 'bro' wat heeft klaar gemaakt.
 
+### Data & platform sources
+- <b>_Yummly:_</b> https://developer.yummly.com/
+- <b>_Firebase:_</b> https://firebase.google.com/
 
-### Main features
-- _Login/Signup:_ De gebruiker kan een account maken en daarmee de activiteiten op de app beginnen.
-- _Input:_ De gebruiker wordt gevraagd om op de homepage zijn 'leftover' ingredienten in te vullen. Door vervolgens op de knop 'Create' te klikken worden er recepten weergegeven op een nieuwe activity in de vorm van afbeeldingen. Door de afbeeldingen kan gescrolld worden om het juiste recept te vinden. Daarnaast zijn de recepten klikbaar en gaat de gebruiker naar de voglende activity. Hier wordt de informatie van het gekozen recept ingeladen. De ingredienten, bereidingstijd en link naar een recept worden ingeladen.
-- _Needed ingredients:_ De ingredienten die nodig zijnr worden weergeven hierdoor krijgt de gebruiker informatie over de nog bijbehorende ingredienten.
-- _Favorites:_ De gebruiker heeft de mogelijkheid om zijn of haar recepten op te slaan om later terug te kunnen komen naar recepten die graag nog een keer gemaakt mogen worden.
-#### MVP
-- _Login/Signup_
-- _Input_
-- _Shown recipes_
-- _Favorites_
-- _Needed ingredients_
-- _Show/Make Groups_
-
-### Hardest part
-- _Show/Make Groups_: De mogelijkheid om jouw "Bro's" in een groep te hebben in de app en vervolgens de gemaakte gerechten bij te kunnen houden in een feed; zodat er niet 3x hetzelfde gerecht wordt gemaakt in een studentenhuis.
-
-
-
-
-### Sketch
-#### Main / simple structure:
-![alt text](https://github.com/tomdekr/project-01/blob/master/doc/sketch1.png)
-
-### Extra Features 
-- _Show more detailed information in app:_ Door het gebruik van de API's wordt er gelinked naar een website waar de instructies van het recept staan. Ik wil als extra feature kijken of het mogelijk is om die informatie te weergeven in app zonder van de app weg te hoeven gaan als gebruiker. (Waarschijnlijk door acceptatie van Yummly als developer nu goed mogelijk)
-
-### Data sources
-Yummly API (zojuist geaccepteerd)
-- _Yummly:_ https://developer.yummly.com/
-
-
-### External components
-Firebase --> Login/Signup & Group data (Zie extra feature #2)
-
-### Similar applications
-Foodies: https://play.google.com/store/apps/details?id=com.garagedevs.foodies
 
