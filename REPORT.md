@@ -25,7 +25,7 @@ Tot slot, is er de mogelijkheid om op de button 'Recipe' te klikken en kan een u
 - *Recipe.java :* Recipe is een class die de benodige informatie van een recept bevat die in RecipeDetailActivity wordt opgeslagen. De class wordt dus gebruikt om de opgehaalde api waardes op te slaan als instance en maakt het mogelijk om de RecyclerView van data te voorzien.
 - *Adapter.java :*  Deze class ontvangt data van activiteiten in een instance van Recipe class en maakt hier een RecyclerView van.
 
-## Challenges:
+## Challenges & Decisions:
 
 Voor mij was het een grote challenge om het groep concept goed te laten werken. Ik had in mijn DESIGN.md dit vernoemd als mijn 'Hardest part' en ik denk dat het is gebleken dat het zeker een moeilijk onderdeel van mijn applicatie is geweest. Het maken van een favoriten lijst onder een bepaalde id/groepsnaam is niet lastig. Maar de user daaraan linken en vervolgens filteren op de juiste groepsnaam die hoort bij de juiste user vond ik wel pittig. Ik heb voor deze challenge een aantal keuzes gemaakt:
 
