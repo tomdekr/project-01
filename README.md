@@ -16,7 +16,8 @@ Welke student heeft nou niet het probleem dat als je in de koelkast kijkt dat je
 Met BroCook wordt het probleeem opgelost door te zoeken naar een recept gebaseerd op de restjes die nog in de koelkast liggen die door de gebruiker wordt ingevuld en door de mogelijkheid om te kijken welke 'bro' wat heeft klaar gemaakt.
 
 ### Data & platform sources
-- <b>_Yummly:_</b> https://developer.yummly.com/
-- <b>_Firebase:_</b> https://firebase.google.com/
-
+- <b>_Yummly:_</b> https://developer.yummly.com/ (Accepted as Academic developer)
+- <b>_Firebase:_</b> https://firebase.google.com/ (Licensed onder Creative Commons Attribution 3.0 License)
+- <b>_Picasso:_</b> http://square.github.io/picasso/ (Licensed onder Apache 2.0)
+- <b>_BetterCodeHub:_</b> https://bettercodehub.com/
 License: Licensed under the Apache License, Version 2.0 (the "License")
