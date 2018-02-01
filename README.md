@@ -19,4 +19,4 @@ Met BroCook wordt het probleeem opgelost door te zoeken naar een recept gebaseer
 - <b>_Yummly:_</b> https://developer.yummly.com/
 - <b>_Firebase:_</b> https://firebase.google.com/
 
-
+License: Licensed under the Apache License, Version 2.0 (the "License")
