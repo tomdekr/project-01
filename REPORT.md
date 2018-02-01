@@ -5,6 +5,10 @@ In mijn app is het mogelijk om recepten te zoeken gebaseerd op 1 of meerdere ing
 
 <img src="https://github.com/tomdekr/project-01/blob/master/doc/Naamloos-1.png" width="436" height="768" />
 
+
+## Overview
+<img src="https://github.com/tomdekr/project-01/blob/master/doc/overview-screens.png" />
+
 # Technical design
 ## Omschrijving:
 - *LoginActivity.java :* De functionaliteit van de login activity klinkt vanzelfsprekend, de user kan op deze activity inloggen met zijn of haar gegevens. 
