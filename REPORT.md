@@ -5,8 +5,6 @@ In mijn app is het mogelijk om recepten te zoeken gebaseerd op 1 of meerdere ing
 
 <img src="https://github.com/tomdekr/project-01/blob/master/doc/Naamloos-1.png" width="436" height="768" />
 
-### Clearly describe the technical design: how is the functionality implemented in your code? This should be like your DESIGN.md but updated to reflect the final application. First, give a high level overview, which helps us navigate and understand the total of your code (which components are there?). Second, go into detail, and describe the modules/classes (apps) files/functions (data) and how they relate.
-
 # Technical design
 ## Omschrijving:
 - *LoginActivity.java :* De functionaliteit van de login activity klinkt vanzelfsprekend, de user kan op deze activity inloggen met zijn of haar gegevens. 
