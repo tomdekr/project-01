@@ -81,6 +81,12 @@
 - Aanpassingen gemaakt aan design op RecipeDetailActivity
 - Code Review uitgevoerd
 
+#### 31-01-2018:
+- Bij meerdere favorites kreeg maar 1 recept een hartje, gefixed
+- Het verwijderen van recepten bij group & favorites en vervolgens toevoegen dat je alleen de id opsloeg in firebase bug, gefixed
+- Het verkeerd weergeven van de lijst als er iets is verwijderd bug, gefixed
+- Comments geschreven
+
 
 
 
