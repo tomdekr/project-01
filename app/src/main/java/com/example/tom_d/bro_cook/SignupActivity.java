@@ -17,6 +17,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
+/**
+ * Displays the screen to signup if a user is not yet registered/logged in
+ */
+
         public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
             ProgressBar progressBar;

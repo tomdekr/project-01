@@ -28,6 +28,10 @@ import static com.example.tom_d.bro_cook.RecipeImageActivity.EXTRA_CREATOR;
 import static com.example.tom_d.bro_cook.RecipeImageActivity.EXTRA_INT;
 import static com.example.tom_d.bro_cook.RecipeImageActivity.EXTRA_URL;
 
+/**
+ * Displays the Favorite recipes from a user
+ */
+
 public class FavoriteList extends AppCompatActivity implements Adapter.OnItemClickListener {
     public static final String EXTRA_ID = "id";
     private RecyclerView mRecyclerView;

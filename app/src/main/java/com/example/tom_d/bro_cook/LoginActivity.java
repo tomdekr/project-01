@@ -17,6 +17,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * Displays the login screen to make an user login if he/she didn't yet
+ */
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     FirebaseAuth mAuth;

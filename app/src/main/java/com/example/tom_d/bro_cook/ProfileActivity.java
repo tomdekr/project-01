@@ -30,6 +30,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Displays the settings for a user and the option to logout
+ */
 
 public class ProfileActivity extends AppCompatActivity {
 

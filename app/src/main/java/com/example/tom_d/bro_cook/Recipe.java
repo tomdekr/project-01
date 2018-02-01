@@ -2,6 +2,7 @@ package com.example.tom_d.bro_cook;
 
 /**
  * Created by Tom_D on 1/18/2018.
+ * Helper class that makes instances from the values from the api for the recipes
  */
 
 public class Recipe {

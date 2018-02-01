@@ -33,6 +33,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Displays the detail page for a recipe
+ */
 
 public class RecipeDetailActivity extends AppCompatActivity {
     public static final String EXTRA_ID = "id";
@@ -117,7 +120,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     // Method for making the visualisation with the info from the api about any clicked recipe
     private void parseJSON() {
         Intent intent = getIntent();
-        String input = intent.getStringExtra(EXTRA_ID);
+        final String input = intent.getStringExtra(EXTRA_ID);
         String id = intent.getStringExtra("id");
         String broId = intent.getStringExtra("broId");
         String url = ("http://api.yummly.com/v1/api/recipe/recipe-id?_app_id=d77dc66c&_app_key=e03fc2ee7af2a8271e7200e35155104e");
@@ -208,6 +211,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                                     finish();
                                     Intent detailIntent = new Intent(RecipeDetailActivity.this, WebActivity.class);
                                     detailIntent.putExtra("source",sourceUrl);
+                                    detailIntent.putExtra(EXTRA_ID,input);
                                     startActivity(detailIntent);
 
 

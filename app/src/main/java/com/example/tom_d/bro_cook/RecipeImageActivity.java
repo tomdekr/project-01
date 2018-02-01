@@ -28,6 +28,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * Displays the RecyclerView with the searchlist of recipes
+ */
+
 public class RecipeImageActivity extends AppCompatActivity implements Adapter.OnItemClickListener {
     public static final String EXTRA_ID = "id";
     public static final String EXTRA_CREATOR = "recipe";

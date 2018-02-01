@@ -6,7 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 
+
+/**
+ * Displays the webview for the recipe source url link
+ */
+
 public class WebActivity extends AppCompatActivity {
+    public static final String EXTRA_ID = "id";
     WebView mWebView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,10 @@ public class WebActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-        startActivity(new Intent(WebActivity.this, RecipeImageActivity.class));
+        Intent intent = getIntent();
+        String input = intent.getStringExtra(EXTRA_ID);
+        Intent detailIntent = new Intent(this, RecipeDetailActivity.class);
+        detailIntent.putExtra(EXTRA_ID,input);
+        startActivity(detailIntent);
     }
 }

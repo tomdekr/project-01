@@ -32,6 +32,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Displays an activity where the user can search for recipes or navigate to profile, favorites or group
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

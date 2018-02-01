@@ -22,6 +22,10 @@ import static com.example.tom_d.bro_cook.RecipeImageActivity.EXTRA_CREATOR;
 import static com.example.tom_d.bro_cook.RecipeImageActivity.EXTRA_INT;
 import static com.example.tom_d.bro_cook.RecipeImageActivity.EXTRA_URL;
 
+/**
+ * Displays the favorites for the group an user is part of
+ */
+
 public class GroupList extends AppCompatActivity implements Adapter.OnItemClickListener {
     public static final String EXTRA_ID = "id";
     private RecyclerView mRecyclerView;

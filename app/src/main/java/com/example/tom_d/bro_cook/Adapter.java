@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Tom_D on 1/18/2018.
+ * Is an adapter to create a RecyclerView with the values from Recipe
  */
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ExampleViewHolder>{
